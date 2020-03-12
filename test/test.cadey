@@ -28,7 +28,8 @@ and it's very [bold fast].
     ]
 ]
 
-[code :language javascript
+[
+code :language javascript
 console.log("hello world!")
 console.log("line breaks are preserved")
 ]
