@@ -1,0 +1,36 @@
+[header :size 1 Cadey]
+
+[italic This is [bold Cadey]]
+
+Cadey is [italic amazing],
+and it's very [bold fast].
+
+[
+  table 
+    [:header abc xyz]
+    [:row 123 [italic 456]]
+    [:row 123 456]
+]
+
+[image https://picsum.photos/300/200 :width 300]
+
+[link https://9gag.com 9gag!]
+
+[
+  list
+    [: this is a multiword item]
+    another
+    [: some text
+      [
+        list :type ordered
+        abc def ghi jkl
+      ]
+    ]
+]
+
+[code :language javascript
+console.log("hello world!")
+console.log("line breaks are preserved")
+]
+
+[quote lorem ipsum]
