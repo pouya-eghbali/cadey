@@ -1,0 +1,342 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Cadey",
+  "patterns": [
+    {
+      "include": "#macro"
+    }
+  ],
+  "repository": {
+    "macro": {
+      "patterns": [
+        {
+          "begin": "\\[(?!:)",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.array.begin.cadey"
+            }
+          },
+          "end": "\\]",
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.array.end.cadey"
+            }
+          },
+          "name": "meta.structure.array.cadey",
+          "patterns": [
+            {
+              "include": "#macro"
+            },
+            {
+              "include": "#builtins"
+            },
+            {
+              "begin": "[a-zA-Z0-9-.]+",
+              "end": "\\s*(?=\\])",
+              "beginCaptures": {
+                "0": {
+                  "name": "entity.name.function"
+                }
+              },
+              "patterns": [
+                {
+                  "include": "#keyword"
+                },
+                {
+                  "include": "#link"
+                },
+                {
+                  "include": "#macro"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "include": "#keyword"
+        },
+        {
+          "include": "#link"
+        }
+      ]
+    },
+    "keyword": {
+      "patterns": [
+        {
+          "begin": "(?<!\\[):[a-zA-Z0-9-.]+",
+          "end": "[^ \\[\\]]+",
+          "beginCaptures": {
+            "0": {
+              "name": "variable.parameter"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "storage"
+            }
+          }
+        },
+        {
+          "match": ":[a-zA-Z0-9-.]+",
+          "name": "variable.parameter"
+        }
+      ]
+    },
+    "link": {
+      "match": "(https?|ftp)://[^ ]+",
+      "name": "markup.underline.link"
+    },
+    "builtins": {
+      "patterns": [
+        {
+          "begin": "bold",
+          "end": "\\s*(?=\\])",
+          "beginCaptures": {
+            "0": {
+              "name": "support.function"
+            }
+          },
+          "name": "markup.bold",
+          "patterns": [
+            {
+              "include": "#keyword"
+            },
+            {
+              "include": "#macro"
+            }
+          ]
+        },
+        {
+          "begin": "italic",
+          "end": "\\s*(?=\\])",
+          "beginCaptures": {
+            "0": {
+              "name": "support.function"
+            }
+          },
+          "name": "markup.italic",
+          "patterns": [
+            {
+              "include": "#keyword"
+            },
+            {
+              "include": "#macro"
+            }
+          ]
+        },
+        {
+          "begin": "header",
+          "end": "\\s*(?=\\])",
+          "beginCaptures": {
+            "0": {
+              "name": "support.function"
+            }
+          },
+          "name": "markup.heading",
+          "patterns": [
+            {
+              "include": "#keyword"
+            },
+            {
+              "include": "#macro"
+            }
+          ]
+        },
+        {
+          "begin": "code",
+          "end": "\\s*(?=\\])",
+          "beginCaptures": {
+            "0": {
+              "name": "support.function"
+            }
+          },
+          "name": "entity.name.function",
+          "patterns": [
+            {
+              "begin": ":language",
+              "end": "\\s*(?=\\])",
+              "patterns": [
+                {
+                  "include": "#code-blocks"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "code-blocks": {
+      "patterns": [
+        {
+          "begin": "javascript",
+          "beginCaptures": {
+            "0": {
+              "name": "storage"
+            }
+          },
+          "end": "\\s*(?=\\])",
+          "patterns": [
+            {
+              "include": "source.js"
+            }
+          ]
+        },
+        {
+          "begin": "css",
+          "beginCaptures": {
+            "0": {
+              "name": "storage"
+            }
+          },
+          "end": "\\s*(?=\\])",
+          "patterns": [
+            {
+              "include": "source.css"
+            }
+          ]
+        },
+        {
+          "begin": "html",
+          "beginCaptures": {
+            "0": {
+              "name": "storage"
+            }
+          },
+          "end": "\\s*(?=\\])",
+          "patterns": [
+            {
+              "include": "text.html.basic"
+            }
+          ]
+        },
+        {
+          "begin": "python",
+          "beginCaptures": {
+            "0": {
+              "name": "storage"
+            }
+          },
+          "end": "\\s*(?=\\])",
+          "patterns": [
+            {
+              "include": "source.python"
+            }
+          ]
+        },
+        {
+          "begin": "bash",
+          "beginCaptures": {
+            "0": {
+              "name": "storage"
+            }
+          },
+          "end": "\\s*(?=\\])",
+          "patterns": [
+            {
+              "include": "source.bash"
+            }
+          ]
+        },
+        {
+          "begin": "c",
+          "beginCaptures": {
+            "0": {
+              "name": "storage"
+            }
+          },
+          "end": "\\s*(?=\\])",
+          "patterns": [
+            {
+              "include": "source.c"
+            }
+          ]
+        },
+        {
+          "begin": "cpp",
+          "beginCaptures": {
+            "0": {
+              "name": "storage"
+            }
+          },
+          "end": "\\s*(?=\\])",
+          "patterns": [
+            {
+              "include": "source.cpp"
+            }
+          ]
+        },
+        {
+          "begin": "perl",
+          "beginCaptures": {
+            "0": {
+              "name": "storage"
+            }
+          },
+          "end": "\\s*(?=\\])",
+          "patterns": [
+            {
+              "include": "source.perl"
+            }
+          ]
+        },
+        {
+          "begin": "rust",
+          "beginCaptures": {
+            "0": {
+              "name": "storage"
+            }
+          },
+          "end": "\\s*(?=\\])",
+          "patterns": [
+            {
+              "include": "source.rust"
+            }
+          ]
+        },
+        {
+          "begin": "lisp",
+          "beginCaptures": {
+            "0": {
+              "name": "storage"
+            }
+          },
+          "end": "\\s*(?=\\])",
+          "patterns": [
+            {
+              "include": "source.lisp"
+            }
+          ]
+        },
+        {
+          "begin": "haskell",
+          "beginCaptures": {
+            "0": {
+              "name": "storage"
+            }
+          },
+          "end": "\\s*(?=\\])",
+          "patterns": [
+            {
+              "include": "source.haskell"
+            }
+          ]
+        },
+        {
+          "begin": "latex",
+          "beginCaptures": {
+            "0": {
+              "name": "storage"
+            }
+          },
+          "end": "\\s*(?=\\])",
+          "patterns": [
+            {
+              "include": "source.latex"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "scopeName": "source.cadey"
+}

@@ -1,0 +1,25 @@
+{
+    "name": "vscode-cadey",
+    "displayName": "vscode-cadey",
+    "description": "Cadey for VSCode",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.43.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "cadey",
+            "aliases": ["Cadey", "cadey"],
+            "extensions": [".cadey"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "cadey",
+            "scopeName": "source.cadey",
+            "path": "./syntaxes/cadey.tmLanguage.json"
+        }]
+    }
+}
