@@ -1,11 +1,7 @@
 const { bean, beef } = require("bean-parser");
 const { lexer } = require("./lexer");
-const fs = require("fs");
-const path = require("path");
 
-const modelData = fs
-  .readFileSync(path.join(__dirname, "cadey.beef"))
-  .toString();
+const modelData = require("./cadey.beef");
 const helpers = {};
 const model = beef(modelData, helpers);
 
