@@ -12,5 +12,8 @@
   "dependencies": {
     "bean-parser": "^1.0.9",
     "mime-types": "^2.1.26"
-  }
+  },
+  "browserslist": [
+    "last 1 chrome versions"
+  ]
 }
