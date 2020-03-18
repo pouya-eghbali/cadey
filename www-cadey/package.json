@@ -19,5 +19,8 @@
     "default": {
       "publicUrl": "/cadey/"
     }
-  }
+  },
+  "browserslist": [
+    "last 1 chrome versions"
+  ]
 }
