@@ -2,7 +2,6 @@
   "name": "www-cadey",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,10 +9,15 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "parcel": "^1.12.4",
+    "parcel": "^2.0.0-alpha.3.2",
     "stylus": "^0.54.7"
   },
   "dependencies": {
     "undyne": "^0.1.1"
+  },
+  "targets": {
+    "default": {
+      "publicUrl": "/cadey/"
+    }
   }
 }

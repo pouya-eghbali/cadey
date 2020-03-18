@@ -1,0 +1,2 @@
+var $e3523abe03fd08e4985cc5aa874bea4$exports = {};
+$e3523abe03fd08e4985cc5aa874bea4$exports = JSON.parse("{\"name\":\"www-cadey\",\"version\":\"1.0.0\",\"description\":\"\",\"main\":\"index.html\",\"scripts\":{\"test\":\"echo \\\"Error: no test specified\\\" && exit 1\"},\"keywords\":[],\"author\":\"\",\"license\":\"ISC\",\"devDependencies\":{\"parcel\":\"^2.0.0-alpha.3.2\",\"stylus\":\"^0.54.7\"},\"dependencies\":{\"undyne\":\"^0.1.1\"},\"targets\":{\"default\":{\"publicUrl\":\"/cadey/\"}}}");

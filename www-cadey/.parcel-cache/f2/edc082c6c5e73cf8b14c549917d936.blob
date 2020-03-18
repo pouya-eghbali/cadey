@@ -1,0 +1,148 @@
+var $d3f2168f3d9feef85fae752f0e64f$exports = {};
+
+function $d3f2168f3d9feef85fae752f0e64f$var$_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function $d3f2168f3d9feef85fae752f0e64f$var$_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function $d3f2168f3d9feef85fae752f0e64f$var$_createClass(Constructor, protoProps, staticProps) { if (protoProps) $d3f2168f3d9feef85fae752f0e64f$var$_defineProperties(Constructor.prototype, protoProps); if (staticProps) $d3f2168f3d9feef85fae752f0e64f$var$_defineProperties(Constructor, staticProps); return Constructor; }
+
+var $d3f2168f3d9feef85fae752f0e64f$var$_require = $parcel$require("839d3f2168f3d9feef85fae752f0e64f", "./parser"),
+    $d3f2168f3d9feef85fae752f0e64f$var$parse = $d3f2168f3d9feef85fae752f0e64f$var$_require.parse;
+var $d3f2168f3d9feef85fae752f0e64f$var$_require2 = $parcel$require("839d3f2168f3d9feef85fae752f0e64f", "./macros"),
+    $d3f2168f3d9feef85fae752f0e64f$var$macros = $d3f2168f3d9feef85fae752f0e64f$var$_require2.macros;
+
+var $d3f2168f3d9feef85fae752f0e64f$var$Cadey = /*#__PURE__*/function () {
+  function Cadey(_ref) {
+    var parse = _ref.parse,
+        macros = _ref.macros,
+        rules = _ref.rules;
+    $d3f2168f3d9feef85fae752f0e64f$var$_classCallCheck(this, Cadey);
+    this.macros = macros;
+    this.parse = parse;
+    this.rules = rules;
+  }
+
+  $d3f2168f3d9feef85fae752f0e64f$var$_createClass(Cadey, [{
+    key: "generate",
+    value: function generate(input) {
+      var cst = this.parse(input);
+      return this.parseCST(cst);
+    }
+  }, {
+    key: "parseCST",
+    value: function parseCST(cst) {
+      return this.rules[cst.name].call(this, cst);
+    }
+  }, {
+    key: "addRules",
+    value: function addRules(rules) {
+      Object.assign(this.rules, rules);
+    }
+  }, {
+    key: "addMacros",
+    value: function addMacros(macros) {
+      Object.assign(this.macros, macros);
+    }
+  }]);
+  return Cadey;
+}();
+
+var $d3f2168f3d9feef85fae752f0e64f$var$rules = {
+  cadey: function cadey(cst) {
+    var document = cst.document;
+    return this.parseCST(document);
+  },
+  document: function document(cst) {
+    var _this = this;
+
+    var content = cst.content;
+    return content.map(function (part) {
+      return _this.parseCST(part);
+    }).join("\n");
+  },
+  block: function block(cst) {
+    var _this2 = this;
+
+    var content = cst.content;
+    var generated = content.map(function (part) {
+      return _this2.parseCST(part);
+    }).join("");
+    return "<div> ".concat(generated, " </div>");
+  },
+  macro: function macro(cst) {
+    var _this3 = this;
+
+    var macro = cst.macro,
+        content = cst.content;
+    var namedArgs = {};
+    var unnamedArgs = []; // todo: this should be done for list argument too
+
+    content.map(function (arg) {
+      return _this3.parseCST(arg);
+    }).forEach(function (arg) {
+      if (typeof arg == "string") unnamedArgs.push(arg);else if (Array.isArray(arg)) unnamedArgs.push(arg);else {
+        for (var key in arg) {
+          if (key in namedArgs) namedArgs[key].push(arg[key]);else namedArgs[key] = [arg[key]];
+        }
+      }
+    });
+
+    for (var key in namedArgs) {
+      if (namedArgs[key].length == 1) namedArgs[key] = namedArgs[key][0];
+    }
+
+    var args = [namedArgs].concat(unnamedArgs);
+    if (!this.macros[macro]) throw new Error("Macro \"".concat(macro, "\" isn't recognized."));
+    return this.macros[macro].apply(this, args);
+  },
+  namedArgument: function namedArgument(cst) {
+    var _this4 = this;
+
+    var argName = cst.argName,
+        content = cst.content;
+    var parsedContent = content.map(function (arg) {
+      return _this4.parseCST(arg);
+    });
+    var value = content.length == 1 ? parsedContent.pop() : parsedContent;
+    return Object.fromEntries(new Map([[argName, value]]));
+  },
+  listArgument: function listArgument(cst) {
+    var _this5 = this;
+
+    var content = cst.content;
+    var generated = content.map(function (part) {
+      return _this5.parseCST(part);
+    });
+    return generated;
+  },
+  namedArgumentKeyword: function namedArgumentKeyword(cst) {
+    var argName = cst.argName;
+    return ":".concat(argName, " ");
+  },
+  word: function word(cst) {
+    return cst.raw;
+  },
+  spaces: function spaces(cst) {
+    return cst.raw;
+  },
+  newline: function newline() {
+    return "\n";
+  },
+  escaped: function escaped(cst) {
+    return cst.raw[1];
+  }
+};
+var $d3f2168f3d9feef85fae752f0e64f$var$Generator = new $d3f2168f3d9feef85fae752f0e64f$var$Cadey({
+  parse: $d3f2168f3d9feef85fae752f0e64f$var$parse,
+  macros: $d3f2168f3d9feef85fae752f0e64f$var$macros,
+  rules: $d3f2168f3d9feef85fae752f0e64f$var$rules
+});
+
+var $d3f2168f3d9feef85fae752f0e64f$var$generate = function generate(input) {
+  return $d3f2168f3d9feef85fae752f0e64f$var$Generator.generate(input);
+};
+
+var $d3f2168f3d9feef85fae752f0e64f$export$generate = $d3f2168f3d9feef85fae752f0e64f$var$generate;
+$d3f2168f3d9feef85fae752f0e64f$exports.generate = $d3f2168f3d9feef85fae752f0e64f$export$generate;
+var $d3f2168f3d9feef85fae752f0e64f$export$rules = $d3f2168f3d9feef85fae752f0e64f$var$rules;
+$d3f2168f3d9feef85fae752f0e64f$exports.rules = $d3f2168f3d9feef85fae752f0e64f$export$rules;

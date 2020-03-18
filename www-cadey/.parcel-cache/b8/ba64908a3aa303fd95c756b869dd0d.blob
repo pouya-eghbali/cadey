@@ -1,0 +1,177 @@
+var $dbee12bca545e8fcb1c51c1a6755933$exports = {};
+
+/**
+ * Module dependencies.
+ * @private
+ */
+var $dbee12bca545e8fcb1c51c1a6755933$var$db = $parcel$require("8dbee12bca545e8fcb1c51c1a6755933", "mime-db");
+var $dbee12bca545e8fcb1c51c1a6755933$var$extname = $parcel$require("8dbee12bca545e8fcb1c51c1a6755933", "path").extname;
+/**
+ * Module variables.
+ * @private
+ */
+
+var $dbee12bca545e8fcb1c51c1a6755933$var$EXTRACT_TYPE_REGEXP = /^\s*([^;\s]*)(?:;|\s|$)/;
+var $dbee12bca545e8fcb1c51c1a6755933$var$TEXT_TYPE_REGEXP = /^text\//i;
+/**
+ * Module exports.
+ * @public
+ */
+
+var $dbee12bca545e8fcb1c51c1a6755933$export$charset = $dbee12bca545e8fcb1c51c1a6755933$var$charset;
+$dbee12bca545e8fcb1c51c1a6755933$exports.charset = $dbee12bca545e8fcb1c51c1a6755933$export$charset;
+var $dbee12bca545e8fcb1c51c1a6755933$export$charsets = {
+  lookup: $dbee12bca545e8fcb1c51c1a6755933$var$charset
+};
+$dbee12bca545e8fcb1c51c1a6755933$exports.charsets = $dbee12bca545e8fcb1c51c1a6755933$export$charsets;
+var $dbee12bca545e8fcb1c51c1a6755933$export$contentType = $dbee12bca545e8fcb1c51c1a6755933$var$contentType;
+$dbee12bca545e8fcb1c51c1a6755933$exports.contentType = $dbee12bca545e8fcb1c51c1a6755933$export$contentType;
+var $dbee12bca545e8fcb1c51c1a6755933$export$extension = $dbee12bca545e8fcb1c51c1a6755933$var$extension;
+$dbee12bca545e8fcb1c51c1a6755933$exports.extension = $dbee12bca545e8fcb1c51c1a6755933$export$extension;
+var $dbee12bca545e8fcb1c51c1a6755933$export$extensions = Object.create(null);
+$dbee12bca545e8fcb1c51c1a6755933$exports.extensions = $dbee12bca545e8fcb1c51c1a6755933$export$extensions;
+var $dbee12bca545e8fcb1c51c1a6755933$export$lookup = $dbee12bca545e8fcb1c51c1a6755933$var$lookup;
+$dbee12bca545e8fcb1c51c1a6755933$exports.lookup = $dbee12bca545e8fcb1c51c1a6755933$export$lookup;
+var $dbee12bca545e8fcb1c51c1a6755933$export$types = Object.create(null);
+$dbee12bca545e8fcb1c51c1a6755933$exports.types = $dbee12bca545e8fcb1c51c1a6755933$export$types; // Populate the extensions/types maps
+
+$dbee12bca545e8fcb1c51c1a6755933$var$populateMaps($dbee12bca545e8fcb1c51c1a6755933$exports.extensions, $dbee12bca545e8fcb1c51c1a6755933$exports.types);
+/**
+ * Get the default charset for a MIME type.
+ *
+ * @param {string} type
+ * @return {boolean|string}
+ */
+
+function $dbee12bca545e8fcb1c51c1a6755933$var$charset(type) {
+  if (!type || typeof type !== 'string') {
+    return false;
+  } // TODO: use media-typer
+
+
+  var match = $dbee12bca545e8fcb1c51c1a6755933$var$EXTRACT_TYPE_REGEXP.exec(type);
+  var mime = match && $dbee12bca545e8fcb1c51c1a6755933$var$db[match[1].toLowerCase()];
+
+  if (mime && mime.charset) {
+    return mime.charset;
+  } // default text/* to utf-8
+
+
+  if (match && $dbee12bca545e8fcb1c51c1a6755933$var$TEXT_TYPE_REGEXP.test(match[1])) {
+    return 'UTF-8';
+  }
+
+  return false;
+}
+/**
+ * Create a full Content-Type header given a MIME type or extension.
+ *
+ * @param {string} str
+ * @return {boolean|string}
+ */
+
+
+function $dbee12bca545e8fcb1c51c1a6755933$var$contentType(str) {
+  // TODO: should this even be in this module?
+  if (!str || typeof str !== 'string') {
+    return false;
+  }
+
+  var mime = str.indexOf('/') === -1 ? $dbee12bca545e8fcb1c51c1a6755933$exports.lookup(str) : str;
+
+  if (!mime) {
+    return false;
+  } // TODO: use content-type or other module
+
+
+  if (mime.indexOf('charset') === -1) {
+    var charset = $dbee12bca545e8fcb1c51c1a6755933$exports.charset(mime);
+    if (charset) mime += '; charset=' + charset.toLowerCase();
+  }
+
+  return mime;
+}
+/**
+ * Get the default extension for a MIME type.
+ *
+ * @param {string} type
+ * @return {boolean|string}
+ */
+
+
+function $dbee12bca545e8fcb1c51c1a6755933$var$extension(type) {
+  if (!type || typeof type !== 'string') {
+    return false;
+  } // TODO: use media-typer
+
+
+  var match = $dbee12bca545e8fcb1c51c1a6755933$var$EXTRACT_TYPE_REGEXP.exec(type); // get extensions
+
+  var exts = match && $dbee12bca545e8fcb1c51c1a6755933$exports.extensions[match[1].toLowerCase()];
+
+  if (!exts || !exts.length) {
+    return false;
+  }
+
+  return exts[0];
+}
+/**
+ * Lookup the MIME type for a file path/extension.
+ *
+ * @param {string} path
+ * @return {boolean|string}
+ */
+
+
+function $dbee12bca545e8fcb1c51c1a6755933$var$lookup(path) {
+  if (!path || typeof path !== 'string') {
+    return false;
+  } // get the extension ("ext" or ".ext" or full path)
+
+
+  var extension = $dbee12bca545e8fcb1c51c1a6755933$var$extname('x.' + path).toLowerCase().substr(1);
+
+  if (!extension) {
+    return false;
+  }
+
+  return $dbee12bca545e8fcb1c51c1a6755933$exports.types[extension] || false;
+}
+/**
+ * Populate the extensions and types maps.
+ * @private
+ */
+
+
+function $dbee12bca545e8fcb1c51c1a6755933$var$populateMaps(extensions, types) {
+  // source preference (least -> most)
+  var preference = ['nginx', 'apache', undefined, 'iana'];
+  Object.keys($dbee12bca545e8fcb1c51c1a6755933$var$db).forEach(function forEachMimeType(type) {
+    var mime = $dbee12bca545e8fcb1c51c1a6755933$var$db[type];
+    var exts = mime.extensions;
+
+    if (!exts || !exts.length) {
+      return;
+    } // mime -> extensions
+
+
+    extensions[type] = exts; // extension -> mime
+
+    for (var i = 0; i < exts.length; i++) {
+      var extension = exts[i];
+
+      if (types[extension]) {
+        var from = preference.indexOf($dbee12bca545e8fcb1c51c1a6755933$var$db[types[extension]].source);
+        var to = preference.indexOf(mime.source);
+
+        if (types[extension] !== 'application/octet-stream' && (from > to || from === to && types[extension].substr(0, 12) === 'application/')) {
+          // skip the remapping
+          continue;
+        }
+      } // set the extension -> mime
+
+
+      types[extension] = type;
+    }
+  });
+}

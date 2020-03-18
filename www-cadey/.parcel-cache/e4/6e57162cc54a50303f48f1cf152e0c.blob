@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="8f4bb739168b2f678b0f602a5489e0ac" rel="stylesheet">
+  <link href="c01ff994b347d1767c60175e2e2883b1" rel="stylesheet">
+  <title>Cadey</title>
+</head>
+
+<body>
+  <div class="row">
+    <h1> Cadey </h1>
+  </div>
+  <div class="playground-container">
+    <div id="playground">
+      <div class="panes">
+        <div class="editor-container">
+          <canvas id="editor" width="600px" height="520px"></canvas>
+        </div>
+        <div id="live-preview"> </div>
+      </div>
+      <div id="error"></div>
+    </div>
+  </div>
+  <script src="df55e7008071aa4dba9b86cf64e66811"></script>
+</body>
+
+</html>

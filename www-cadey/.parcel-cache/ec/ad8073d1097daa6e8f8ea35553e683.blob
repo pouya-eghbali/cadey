@@ -1,0 +1,4 @@
+var $ac92ba53869a7b800bd45542c4df4e8e$exports = {};
+var $ac92ba53869a7b800bd45542c4df4e8e$var$_require = $parcel$require("ac92ba53869a7b800bd45542c4df4e8e", "./generator"),
+    $ac92ba53869a7b800bd45542c4df4e8e$var$generate = $ac92ba53869a7b800bd45542c4df4e8e$var$_require.generate;
+$ac92ba53869a7b800bd45542c4df4e8e$exports = $ac92ba53869a7b800bd45542c4df4e8e$var$generate;

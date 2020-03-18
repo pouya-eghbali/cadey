@@ -1,0 +1,166 @@
+$parcel$require("26ede061e2941ef3845e57af1da04905", "./index.styl");
+$parcel$require("26ede061e2941ef3845e57af1da04905", "./dracula-prism.css");
+$parcel$require("26ede061e2941ef3845e57af1da04905", "../cadey/index");
+$parcel$require("26ede061e2941ef3845e57af1da04905", "undyne");
+
+function $ede061e2941ef3845e57af1da04905$var$_typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { $ede061e2941ef3845e57af1da04905$var$_typeof = function _typeof(obj) { return typeof obj; }; } else { $ede061e2941ef3845e57af1da04905$var$_typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return $ede061e2941ef3845e57af1da04905$var$_typeof(obj); }
+
+function $ede061e2941ef3845e57af1da04905$var$_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function $ede061e2941ef3845e57af1da04905$var$_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function $ede061e2941ef3845e57af1da04905$var$_createClass(Constructor, protoProps, staticProps) { if (protoProps) $ede061e2941ef3845e57af1da04905$var$_defineProperties(Constructor.prototype, protoProps); if (staticProps) $ede061e2941ef3845e57af1da04905$var$_defineProperties(Constructor, staticProps); return Constructor; }
+
+function $ede061e2941ef3845e57af1da04905$var$_possibleConstructorReturn(self, call) { if (call && ($ede061e2941ef3845e57af1da04905$var$_typeof(call) === "object" || typeof call === "function")) { return call; } return $ede061e2941ef3845e57af1da04905$var$_assertThisInitialized(self); }
+
+function $ede061e2941ef3845e57af1da04905$var$_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function $ede061e2941ef3845e57af1da04905$var$_getPrototypeOf(o) { $ede061e2941ef3845e57af1da04905$var$_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return $ede061e2941ef3845e57af1da04905$var$_getPrototypeOf(o); }
+
+function $ede061e2941ef3845e57af1da04905$var$_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) $ede061e2941ef3845e57af1da04905$var$_setPrototypeOf(subClass, superClass); }
+
+function $ede061e2941ef3845e57af1da04905$var$_setPrototypeOf(o, p) { $ede061e2941ef3845e57af1da04905$var$_setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return $ede061e2941ef3845e57af1da04905$var$_setPrototypeOf(o, p); }
+
+var $ede061e2941ef3845e57af1da04905$var$CadeyEditor = /*#__PURE__*/function (_Undyne) {
+  $ede061e2941ef3845e57af1da04905$var$_inherits(CadeyEditor, _Undyne);
+
+  function CadeyEditor() {
+    $ede061e2941ef3845e57af1da04905$var$_classCallCheck(this, CadeyEditor);
+    return $ede061e2941ef3845e57af1da04905$var$_possibleConstructorReturn(this, $ede061e2941ef3845e57af1da04905$var$_getPrototypeOf(CadeyEditor).apply(this, arguments));
+  }
+
+  $ede061e2941ef3845e57af1da04905$var$_createClass(CadeyEditor, [{
+    key: "tokenize",
+    value: function tokenize() {
+      var _this = this;
+
+      this.colorMap = this.colorMap || {};
+
+      var getColor = function getColor(type) {
+        if (!_this.colorMap[type]) {
+          var el = document.createElement("span");
+          el.innerText = "Cadey";
+          el.classList.add("token", type);
+          document.body.appendChild(el);
+
+          var _window$getComputedSt = window.getComputedStyle(el),
+              color = _window$getComputedSt.color;
+
+          el.remove();
+          _this.colorMap[type] = color;
+        }
+
+        return _this.colorMap[type];
+      };
+
+      var lines = this.getLines().map(function (line) {
+        return line.split(/(?<=[ \[\]])|(?=[ \[\]])/);
+      });
+      var result = [];
+      var expectCommand = false;
+      var expectKeyword = 0;
+      var doEscape = false;
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = lines[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var line = _step.value;
+          var tokens = [];
+          var _iteratorNormalCompletion2 = true;
+          var _didIteratorError2 = false;
+          var _iteratorError2 = undefined;
+
+          try {
+            for (var _iterator2 = line[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+              var content = _step2.value;
+
+              if (expectCommand && !content.startsWith(":")) {
+                tokens.push({
+                  content: content,
+                  color: getColor("function")
+                });
+              } else if (expectKeyword && content.startsWith(":")) {
+                tokens.push({
+                  content: content,
+                  color: getColor("keyword")
+                });
+              } else {
+                tokens.push({
+                  content: content
+                });
+              }
+
+              if (!doEscape && !content.match(/\s/)) {
+                expectCommand = content == "[";
+
+                if (content == "]") {
+                  expectKeyword--;
+                } else if (content == "[") {
+                  expectKeyword++;
+                }
+              }
+
+              doEscape = content == "\\";
+            }
+          } catch (err) {
+            _didIteratorError2 = true;
+            _iteratorError2 = err;
+          } finally {
+            try {
+              if (!_iteratorNormalCompletion2 && _iterator2.return != null) {
+                _iterator2.return();
+              }
+            } finally {
+              if (_didIteratorError2) {
+                throw _iteratorError2;
+              }
+            }
+          }
+
+          result.push(tokens);
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator.return != null) {
+            _iterator.return();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+
+      return result;
+    }
+  }]);
+  return CadeyEditor;
+}($ede061e2941ef3845e57af1da04905$import$Undyne);
+
+var $ede061e2941ef3845e57af1da04905$var$editor = new $ede061e2941ef3845e57af1da04905$var$CadeyEditor(document.getElementById("editor"));
+$ede061e2941ef3845e57af1da04905$var$editor.content = "[heading :size 1 Cadey]\n\nThis is [bold Cadey].\n[italic [bold Cadey] is a markup language].\n\nUnlike Markdown, [bold Cadey]\ncan be parsed with a real parser.\n[bold Cadey] has a well-defined\n[link https://cadey.io/specs specification].\n\n[bold Cadey] has features that cannot\nbe found in Markdown.\n\n[list :type ordered\n  [: A list of fruits:\n       [list Apples Oranges]\n     Can you do this in Markdown?]\n  [: Just another item] \n]\n\nHere's a random image!\n\n[image https://picsum.photos/340/150]\n";
+
+var $ede061e2941ef3845e57af1da04905$var$preview = function preview() {
+  var content = $ede061e2941ef3845e57af1da04905$var$editor.content;
+
+  try {
+    var generated = $ede061e2941ef3845e57af1da04905$import$cadey(content);
+    document.getElementById("live-preview").innerHTML = generated;
+    document.getElementById("error").innerText = "";
+    document.getElementById("error").style.display = "none";
+  } catch (error) {
+    document.getElementById("error").innerText = error;
+    document.getElementById("error").style.display = "block";
+  }
+};
+
+$ede061e2941ef3845e57af1da04905$var$preview();
+document.getElementById("error").style.display = "none";
+$ede061e2941ef3845e57af1da04905$var$editor.canvas.addEventListener("keydown", function (event) {
+  return $ede061e2941ef3845e57af1da04905$var$preview();
+});

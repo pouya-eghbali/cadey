@@ -1,0 +1,51 @@
+var $f4daf51c1b6eb7677b25b984ecb08b17$exports = {};
+
+function $f4daf51c1b6eb7677b25b984ecb08b17$var$_slicedToArray(arr, i) { return $f4daf51c1b6eb7677b25b984ecb08b17$var$_arrayWithHoles(arr) || $f4daf51c1b6eb7677b25b984ecb08b17$var$_iterableToArrayLimit(arr, i) || $f4daf51c1b6eb7677b25b984ecb08b17$var$_nonIterableRest(); }
+
+function $f4daf51c1b6eb7677b25b984ecb08b17$var$_nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function $f4daf51c1b6eb7677b25b984ecb08b17$var$_iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function $f4daf51c1b6eb7677b25b984ecb08b17$var$_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var $f4daf51c1b6eb7677b25b984ecb08b17$var$_require = $parcel$require("f4daf51c1b6eb7677b25b984ecb08b17", "bean-parser"),
+    $f4daf51c1b6eb7677b25b984ecb08b17$var$bean = $f4daf51c1b6eb7677b25b984ecb08b17$var$_require.bean,
+    $f4daf51c1b6eb7677b25b984ecb08b17$var$beef = $f4daf51c1b6eb7677b25b984ecb08b17$var$_require.beef;
+var $f4daf51c1b6eb7677b25b984ecb08b17$var$_require2 = $parcel$require("f4daf51c1b6eb7677b25b984ecb08b17", "./lexer"),
+    $f4daf51c1b6eb7677b25b984ecb08b17$var$lexer = $f4daf51c1b6eb7677b25b984ecb08b17$var$_require2.lexer;
+var $f4daf51c1b6eb7677b25b984ecb08b17$var$modelData = $parcel$require("f4daf51c1b6eb7677b25b984ecb08b17", "./cadey.beef.js");
+var $f4daf51c1b6eb7677b25b984ecb08b17$var$helpers = {};
+var $f4daf51c1b6eb7677b25b984ecb08b17$var$model = $f4daf51c1b6eb7677b25b984ecb08b17$var$beef($f4daf51c1b6eb7677b25b984ecb08b17$var$modelData, $f4daf51c1b6eb7677b25b984ecb08b17$var$helpers);
+
+var $f4daf51c1b6eb7677b25b984ecb08b17$var$parse = function parse(source) {
+  var tokens = $f4daf51c1b6eb7677b25b984ecb08b17$var$lexer(source);
+
+  var _bean = $f4daf51c1b6eb7677b25b984ecb08b17$var$bean($f4daf51c1b6eb7677b25b984ecb08b17$var$model, tokens),
+      _bean2 = $f4daf51c1b6eb7677b25b984ecb08b17$var$_slicedToArray(_bean, 2),
+      success = _bean2[0],
+      result = _bean2[1];
+
+  if (success) {
+    var cst = result[0];
+    return cst;
+  } else {
+    console.dir(result, {
+      depth: null
+    });
+    var firstUnmatched = result[0].name;
+    var expecting = $f4daf51c1b6eb7677b25b984ecb08b17$var$model.filter(function (m) {
+      return m.left == firstUnmatched;
+    }).map(function (_ref) {
+      var right = _ref.right;
+      return right;
+    });
+    var encountered = result[1].name;
+    var ParsingError = "Expecting one of ".concat(expecting.join(", "), " but encountered ").concat(encountered);
+    throw ParsingError;
+  }
+};
+
+var $f4daf51c1b6eb7677b25b984ecb08b17$export$parse = $f4daf51c1b6eb7677b25b984ecb08b17$var$parse;
+$f4daf51c1b6eb7677b25b984ecb08b17$exports.parse = $f4daf51c1b6eb7677b25b984ecb08b17$export$parse;
+var $f4daf51c1b6eb7677b25b984ecb08b17$export$model = $f4daf51c1b6eb7677b25b984ecb08b17$var$model;
+$f4daf51c1b6eb7677b25b984ecb08b17$exports.model = $f4daf51c1b6eb7677b25b984ecb08b17$export$model;
