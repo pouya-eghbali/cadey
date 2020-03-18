@@ -29,4 +29,10 @@ and it's very <b>  fast </b>. </div>
 <li> jkl </li> </ol> </li> </ul> </div>
 <div> <pre><code class="lang-javascript">console.log("hello world!")
 console.log("line breaks are preserved")</code></pre> </div>
+<div> <pre><code class="lang-javascript">const { generate } = require("../generator");
+const fs = require("fs");
+const cadey = fs.readFileSync("./test.cadey").toString();
+const result = generate(cadey);
+fs.writeFileSync("./test.html", result);
+</code></pre> </div>
 <div> <blockquote>  lorem ipsum </blockquote> </div>

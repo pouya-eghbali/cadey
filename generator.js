@@ -56,6 +56,8 @@ const rules = {
     for (const key in namedArgs)
       if (namedArgs[key].length == 1) namedArgs[key] = namedArgs[key][0];
     const args = [namedArgs, ...unnamedArgs];
+    if (!this.macros[macro])
+      throw new Error(`Macro "${macro}" isn't recognized.`);
     return this.macros[macro].apply(this, args);
   },
   namedArgument(cst) {

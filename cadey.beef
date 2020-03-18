@@ -38,3 +38,4 @@ document block => document { content: [...left.content, right]}
 block block => document { content: [left, right] }
 
 document eof => cadey { document: left }
+block eof => cadey { document: { name: "document", content: [left] }}

@@ -1,4 +1,4 @@
-[header :size 1 Cadey]
+[heading :size 1 Cadey]
 
 [italic This is [bold Cadey]]
 
@@ -33,5 +33,7 @@ code :language javascript
 console.log("hello world!")
 console.log("line breaks are preserved")
 ]
+
+[code [:content ./test.js]]
 
 [quote lorem ipsum]

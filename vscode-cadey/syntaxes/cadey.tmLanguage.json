@@ -125,7 +125,7 @@
           ]
         },
         {
-          "begin": "header",
+          "begin": "heading",
           "end": "\\s*(?=\\])",
           "beginCaptures": {
             "0": {
@@ -150,16 +150,23 @@
               "name": "support.function"
             }
           },
-          "name": "entity.name.function",
           "patterns": [
             {
               "begin": ":language",
               "end": "\\s*(?=\\])",
+              "beginCaptures": {
+                "0": {
+                  "name": "variable.parameter"
+                }
+              },
               "patterns": [
                 {
                   "include": "#code-blocks"
                 }
               ]
+            },
+            {
+              "include": "#keyword"
             }
           ]
         }
@@ -178,6 +185,20 @@
           "patterns": [
             {
               "include": "source.js"
+            }
+          ]
+        },
+        {
+          "begin": "java",
+          "beginCaptures": {
+            "0": {
+              "name": "storage"
+            }
+          },
+          "end": "\\s*(?=\\])",
+          "patterns": [
+            {
+              "include": "source.java"
             }
           ]
         },
@@ -252,6 +273,34 @@
           ]
         },
         {
+          "begin": "r",
+          "beginCaptures": {
+            "0": {
+              "name": "storage"
+            }
+          },
+          "end": "\\s*(?=\\])",
+          "patterns": [
+            {
+              "include": "source.r"
+            }
+          ]
+        },
+        {
+          "begin": "d",
+          "beginCaptures": {
+            "0": {
+              "name": "storage"
+            }
+          },
+          "end": "\\s*(?=\\])",
+          "patterns": [
+            {
+              "include": "source.d"
+            }
+          ]
+        },
+        {
           "begin": "cpp",
           "beginCaptures": {
             "0": {
@@ -294,6 +343,20 @@
           ]
         },
         {
+          "begin": "go",
+          "beginCaptures": {
+            "0": {
+              "name": "storage"
+            }
+          },
+          "end": "\\s*(?=\\])",
+          "patterns": [
+            {
+              "include": "source.go"
+            }
+          ]
+        },
+        {
           "begin": "lisp",
           "beginCaptures": {
             "0": {
@@ -332,6 +395,34 @@
           "patterns": [
             {
               "include": "source.latex"
+            }
+          ]
+        },
+        {
+          "begin": "sql",
+          "beginCaptures": {
+            "0": {
+              "name": "storage"
+            }
+          },
+          "end": "\\s*(?=\\])",
+          "patterns": [
+            {
+              "include": "source.sql"
+            }
+          ]
+        },
+        {
+          "begin": "php",
+          "beginCaptures": {
+            "0": {
+              "name": "storage"
+            }
+          },
+          "end": "\\s*(?=\\])",
+          "patterns": [
+            {
+              "include": "source.sql"
             }
           ]
         }
