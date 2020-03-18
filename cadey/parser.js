@@ -1,7 +1,7 @@
 const { bean, beef } = require("bean-parser");
 const { lexer } = require("./lexer");
 
-const modelData = require("./cadey.beef");
+const modelData = require("./cadey.beef.js");
 const helpers = {};
 const model = beef(modelData, helpers);
 
