@@ -18,8 +18,12 @@ and it's very <b>  fast </b>. </div>
 <td> 456 </td> </tr> </tbody>
       </table>
      </div>
-<div> <img width="300px"src="https://picsum.photos/300/200"> </div>
-<div> <a href="https://9gag.com"> 9gag! </a> </div>
+<div> 
+      <span class="image-container">
+        <img width="300px"src="https://picsum.photos/300/200">
+      </span>
+     </div>
+<div> <a href="https://9gag.com">9gag!</a> </div>
 <div> <ul> <li>  this is a multiword item </li>
 <li> another </li>
 <li>  some text
@@ -32,7 +36,7 @@ console.log("line breaks are preserved")</code></pre> </div>
 <div> <pre><code class="lang-javascript">const { generate } = require("../generator");
 const fs = require("fs");
 const cadey = fs.readFileSync("./test.cadey").toString();
-const result = generate(cadey);
-fs.writeFileSync("./test.html", result);
+generate(cadey).then(result => fs.writeFileSync("./test.html", result));
 </code></pre> </div>
 <div> <blockquote>  lorem ipsum </blockquote> </div>
+<div>  </div>

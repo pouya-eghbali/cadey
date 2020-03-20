@@ -1,14 +1,59 @@
-//const fs = require("fs");
-//const path = require("path");
+const fs = require("fs");
+const path = require("path");
 const mime = require("mime-types");
 
-const readFile = src =>
+const readFromFs = src =>
   fs.readFileSync(path.join(process.cwd(), src)).toString();
+
+const fetchFile = async src => {
+  if (src.startsWith(".")) {
+    const { origin } = location;
+    const pathname = location.pathname.replace(/[^/]+$/, "");
+    src = origin + pathname + src;
+  }
+  src = src.replace(/\/\.\//g, "/").replace(/([^/]+)\/\.\.\//, "\1/");
+  const resp = await fetch(src);
+  return await resp.text();
+};
+
+const isNode = typeof window != undefined;
+const readFile = isNode ? readFromFs : fetchFile;
 
 const getLang = src => {
   const info = mime.lookup(src);
   return info ? info.split("/").pop() : info;
 };
+
+const cellValue = cell => {
+  if (Array.isArray(cell)) return cell.join("").trim();
+  return cell;
+};
+
+const unArray = arr => {
+  if (Array.isArray(arr)) {
+    if (arr.filter(removeWhites).filter(Boolean).length)
+      return arr.map(unArray).join("");
+    return `<span></span>`;
+  }
+  return arr;
+};
+const joinWords = cells => cells.map(unArray).reduce(wordJoiner, []);
+
+const wordJoiner = (joined, word) => {
+  if (isWhite(word)) joined.push(word);
+  else joined[joined.length - 1] += word;
+  return joined;
+};
+
+const isWhite = str => str.match(/^\s+$/);
+const removeWhites = cell => typeof cell != "string" || !isWhite(cell);
+const cleanCells = cells => joinWords(cells).filter(removeWhites);
+const makeCell = (type, cell) => `<${type}> ${cellValue(cell)} </${type}>`;
+
+const makeMultipleCells = (type, cells) =>
+  cleanCells(cells)
+    .map(cell => makeCell(type, cell))
+    .join("\n");
 
 const macros = {
   heading(options, ...args) {
@@ -45,12 +90,14 @@ const macros = {
   table(options, ...args) {
     const { row, header } = options;
     const thead = header
-      ? "<tr>" + header.map(cell => `<th> ${cell} </th>`).join("\n") + "</tr>"
+      ? "<tr>" + makeMultipleCells("th", header) + "</tr>"
       : "";
-    const tbody = row
-      .map(r => r.map(cell => `<td> ${cell} </td>`).join("\n"))
-      .map(r => `<tr> ${r} </tr>`)
-      .join("\n");
+    const tbody = Array.isArray(row[0])
+      ? row
+          .map(cells => makeMultipleCells("td", cells))
+          .map(cells => `<tr> ${cells} </tr>`)
+          .join("\n")
+      : "<tr>" + makeMultipleCells("td", row) + "</tr>";
     return `
       <table>
         <thead> ${thead} </thead>
@@ -68,19 +115,32 @@ const macros = {
     const el = type == "ordered" ? "ol" : "ul";
     return `<${el}> ${items} </${el}>`;
   },
-  code(options, ...args) {
+  async code(options, ...args) {
     const { language, content } = options;
     const code = content
-      ? readFile(content.join("").trim())
+      ? await readFile(content.join("").trim())
       : args.join("").trim();
     const getLangName = () => getLang(content.join("").trim());
     const langCode = language || (content ? getLangName() : "");
     const classList = langCode ? `lang-${langCode}` : "";
-    return `<pre><code class="${classList}">${code}</code></pre>`;
+    const multiline = code.includes("\n");
+    const codeBlock = `<code class="${classList}">${code}</code>`;
+    return multiline ? `<pre>${codeBlock}</pre>` : codeBlock;
   },
   quote(options, ...args) {
     const { author } = options;
     return `<blockquote> ${args.join("")} </blockquote>`;
+  },
+  set(options, ...args) {
+    const [name, ...rest] = args.slice(1);
+    this.context = this.context || {};
+    this.context[name] = rest.slice(1);
+    return "";
+  },
+  get(options, ...args) {
+    const [name] = args.filter(removeWhites);
+    this.context = this.context || {};
+    return this.context[name];
   }
 };
 

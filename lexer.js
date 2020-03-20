@@ -2,7 +2,7 @@ const patterns = {
   escaped: /^\\./i,
   keyword: /^:[a-z0-9.-]+/i,
   colon: /^:/,
-  word: /^[^\[\] \n\r]+/,
+  word: /^[^\[\] \n\r\\]+/,
   bracketLeft: /^\[/,
   bracketRight: /^\]/,
   newline: /^(\n|\n\r)/,

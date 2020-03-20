@@ -7,12 +7,15 @@ class Cadey {
     this.parse = parse;
     this.rules = rules;
   }
-  generate(input) {
+  async generate(input) {
     const cst = this.parse(input);
-    return this.parseCST(cst);
+    return await this.parseCST(cst, this.getContext());
   }
-  parseCST(cst) {
-    return this.rules[cst.name].call(this, cst);
+  getContext() {
+    return { cadey: this };
+  }
+  async parseCST(cst, context) {
+    return await this.rules[cst.name].call(this, cst, context);
   }
   addRules(rules) {
     Object.assign(this.rules, rules);
@@ -23,53 +26,67 @@ class Cadey {
 }
 
 const rules = {
-  cadey(cst) {
+  async cadey(cst, context) {
     const { document } = cst;
-    return this.parseCST(document);
+    return await this.parseCST(document, context);
   },
-  document(cst) {
+  async document(cst, context) {
     const { content } = cst;
-    return content.map(part => this.parseCST(part)).join("\n");
+    const document = [];
+    for (const block of content)
+      document.push(await this.parseCST(block, context));
+    return document.join("\n");
   },
-  block(cst) {
+  async block(cst, context) {
     const { content } = cst;
-    const generated = content.map(part => this.parseCST(part)).join("");
+    const promisses = content.map(part => this.parseCST(part, context));
+    const resolved = await Promise.all(promisses);
+    const generated = resolved.join("");
     return `<div> ${generated} </div>`;
   },
-  macro(cst) {
+  async macro(cst, context) {
     const { macro, content } = cst;
     const namedArgs = {};
     const unnamedArgs = [];
     // todo: this should be done for list argument too
-    content
-      .map(arg => this.parseCST(arg))
-      .forEach(arg => {
-        if (typeof arg == "string") unnamedArgs.push(arg);
-        else if (Array.isArray(arg)) unnamedArgs.push(arg);
-        else {
-          for (const key in arg) {
-            if (key in namedArgs) namedArgs[key].push(arg[key]);
-            else namedArgs[key] = [arg[key]];
-          }
+    const promisses = content.map(arg => this.parseCST(arg, context));
+    const resolved = await Promise.all(promisses);
+    resolved.forEach(arg => {
+      if (typeof arg == "string") unnamedArgs.push(arg);
+      else if (Array.isArray(arg)) unnamedArgs.push(arg);
+      else {
+        for (const key in arg) {
+          if (key in namedArgs) namedArgs[key].push(arg[key]);
+          else namedArgs[key] = [arg[key]];
         }
-      });
+      }
+    });
     for (const key in namedArgs)
       if (namedArgs[key].length == 1) namedArgs[key] = namedArgs[key][0];
     const args = [namedArgs, ...unnamedArgs];
     if (!this.macros[macro])
       throw new Error(`Macro "${macro}" isn't recognized.`);
-    return this.macros[macro].apply(this, args);
+    const result = await this.macros[macro].apply(context, args);
+    return result;
   },
-  namedArgument(cst) {
+  async namedArgument(cst, context) {
     const { argName, content } = cst;
-    const parsedContent = content.map(arg => this.parseCST(arg));
+    const promisses = content.map(arg => this.parseCST(arg, context));
+    const parsedContent = await Promise.all(promisses);
     const value = content.length == 1 ? parsedContent.pop() : parsedContent;
     return Object.fromEntries(new Map([[argName, value]]));
   },
-  listArgument(cst) {
-    const { content } = cst;
-    const generated = content.map(part => this.parseCST(part));
-    return generated;
+  async listArgument(cst, context) {
+    const { content, raw } = cst;
+    if (raw.endsWith(":]"))
+      return [
+        content
+          .map(({ name, raw }) => (name == "escaped" ? raw.slice(1) : raw))
+          .join("")
+          .replace(/:\s*$/, "")
+      ];
+    const generated = content.map(part => this.parseCST(part, context));
+    return await Promise.all(generated);
   },
   namedArgumentKeyword(cst) {
     const { argName } = cst;
@@ -86,11 +103,13 @@ const rules = {
   },
   escaped(cst) {
     return cst.raw[1];
+  },
+  escapedList(cst) {
+    return cst.raw.replace(/\\(.)/g, "\1");
   }
 };
 
 const Generator = new Cadey({ parse, macros, rules });
-
 const generate = input => Generator.generate(input);
 
 module.exports.generate = generate;

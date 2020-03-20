@@ -1,0 +1,32 @@
+[heading :size 1 Cadey Markup Language Specifications]
+
+This document contains the official specifications for Cadey.
+
+[heading :size 2 Cadey Syntax]
+
+Cadey recognizes the following tokens at lexing level.
+This table is ordered by the precedence of the lexing rules.
+
+[set escapedRegex         [code :language javascript [:/^\\./i:]]]
+[set keyowrdRegex         [code :language javascript [:/^:[a-z0-9.-]+/i:]]]
+[set colonRegex           [code :language javascript /^:/]]
+[set wordRegex            [code :language javascript [:/^[^\[\] \n\r\\]+/:]]]
+[set bracketLeftRegex     [code :language javascript [:/^\\\[/:]]]
+[set bracketRightRegex    [code :language javascript [:/^\\\]/:]]]
+[set newlineRegex         [code :language javascript [:/^(\\n|\\n\\r)/:]]]
+[set spacesRegex          [code :language javascript / +/]]
+
+[
+  table
+  [:header    [: Token name]   Regex                     Example    Explanation]
+  [:row       escaped       [get escapedRegex]        \\\[       [: Matches escaped characters]]
+  [:row       keyowrd       [get keyowrdRegex]        \:keyword  [: Matches keywords]]
+  [:row       colon         [get colonRegex]          \:         [: Matches a single colon character]]
+  [:row       word          [get wordRegex]           word       [: Matches a word (No [ or ] or \ or whitespaces) :]]
+  [:row       bracketLeft   [get bracketLeftRegex]    \[         [: Matches an opening bracket]]
+  [:row       bracketRight  [get bracketRightRegex]   \]         [: Matches a closing bracket]]
+  [:row       newline       [get newlineRegex]        [::]       [: Matches a new line or carriage return character]]
+  [:row       spaces        [get spacesRegex]         [::]       [: Matches several space characters]]
+]
+
+Cadey recognizes the following tokens at generator level.

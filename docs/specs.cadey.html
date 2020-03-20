@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/dracula-prism.css" />
+  <link rel="stylesheet" href="/css/page.css" />
+  <title>Cadey</title>
+</head>
+<body>
+  <article class="page">
+    <div> <h1>   Cadey Markup Language Specifications </h1> </div>
+<div> This document contains the official specifications for Cadey. </div>
+<div> <h2>   Cadey Syntax </h2> </div>
+<div> Cadey recognizes the following tokens at lexing level.
+This table is ordered by the precedence of the lexing rules. </div>
+<div> 
+
+
+
+
+
+
+ </div>
+<div> 
+      <table>
+        <thead> <tr><th>   Token name </th>
+<th>    Regex </th>
+<th>                      Example </th>
+<th>     Explanation </th></tr> </thead>
+        <tbody> <tr> <td>        escaped </td>
+<td>        <code class="lang-javascript">/^\./i</code> </td>
+<td>         \[ </td>
+<td>         Matches escaped characters </td> </tr>
+<tr> <td>        keyowrd </td>
+<td>        <code class="lang-javascript">/^:[a-z0-9.-]+/i</code> </td>
+<td>         :keyword </td>
+<td>    Matches keywords </td> </tr>
+<tr> <td>        colon </td>
+<td>          <code class="lang-javascript">/^:/</code> </td>
+<td>           : </td>
+<td>           Matches a single colon character </td> </tr>
+<tr> <td>        word </td>
+<td>           <code class="lang-javascript">/^[^\[\] \n\r\\]+/</code> </td>
+<td>            word </td>
+<td>         Matches a word (No [ or ] or  or whitespaces)  </td> </tr>
+<tr> <td>        bracketLeft </td>
+<td>    <code class="lang-javascript">/^\[/</code> </td>
+<td>     [ </td>
+<td>           Matches an opening bracket </td> </tr>
+<tr> <td>        bracketRight </td>
+<td>   <code class="lang-javascript">/^\]/</code> </td>
+<td>    ] </td>
+<td>           Matches a closing bracket </td> </tr>
+<tr> <td>        newline </td>
+<td>        <code class="lang-javascript">/^(\n|\n\r)/</code> </td>
+<td>         <span></span> </td>
+<td>         Matches a new line or carriage return character </td> </tr>
+<tr> <td>        spaces </td>
+<td>         <code class="lang-javascript">/ +/</code> </td>
+<td>          <span></span> </td>
+<td>         Matches several space characters </td> </tr> </tbody>
+      </table>
+     </div>
+<div> Cadey recognizes the following tokens at generator level. </div>
+  </article>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</body>
+</html>

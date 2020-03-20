@@ -10,7 +10,7 @@
     "macro": {
       "patterns": [
         {
-          "begin": "\\[(?!:)",
+          "begin": "(?<!\\\\)\\[(?!:)",
           "beginCaptures": {
             "0": {
               "name": "punctuation.definition.array.begin.cadey"
@@ -63,7 +63,7 @@
     "keyword": {
       "patterns": [
         {
-          "begin": "(?<!\\[):[a-zA-Z0-9-.]+",
+          "begin": "(?<!\\[|\\\\):[a-zA-Z0-9-.]+",
           "end": "[^ \\[\\]]+",
           "beginCaptures": {
             "0": {
@@ -77,7 +77,7 @@
           }
         },
         {
-          "match": ":[a-zA-Z0-9-.]+",
+          "match": "(?<!\\\\):[a-zA-Z0-9-.]+",
           "name": "variable.parameter"
         }
       ]
@@ -201,6 +201,15 @@
               "include": "source.java"
             }
           ]
+        },
+        {
+          "begin": "regex",
+          "beginCaptures": {
+            "0": {
+              "name": "storage"
+            }
+          },
+          "end": "\\s*(?=\\])"
         },
         {
           "begin": "css",

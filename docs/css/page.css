@@ -1,0 +1,71 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Open Sans", sans-serif;
+  background: #282a36;
+  color: #f8f8f2;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+th {
+  color: #ff79c6;
+}
+
+.page {
+  padding: 1em;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.page > * {
+  margin-bottom: 1em;
+}
+
+code {
+  font-family: "Fira Code" !important;
+  border-radius: 2px !important;
+}
+
+table {
+  border-spacing: 0 0.5em;
+}
+
+td,
+th {
+  padding: 0.5em 1em;
+  margin-bottom: 0.5em;
+  text-align: left;
+}
+
+tbody tr:nth-of-type(2n + 1) td {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+tbody tr:nth-of-type(2n + 1) td:first-of-type {
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+tbody tr:nth-of-type(2n + 1) td:last-of-type {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+tbody tr:hover td {
+  background: #44475a;
+}
+
+tbody tr:hover td:first-of-type {
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+tbody tr:hover td:last-of-type {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
