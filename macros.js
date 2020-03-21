@@ -110,6 +110,10 @@ const macros = {
     const items = args
       .filter(arg => typeof arg != "string" || !arg.match(/^[ \n]+$/))
       .map(arg => (Array.isArray(arg) ? arg.join("") : arg))
+      .map(item => item.split(/\n\s*?\n/g))
+      .map(item => item.filter(removeWhites))
+      .map(item => item.map(line => `<div> ${line} </div>`))
+      .map(item => item.join("\n"))
       .map(item => `<li> ${item} </li>`)
       .join("\n");
     const el = type == "ordered" ? "ol" : "ul";

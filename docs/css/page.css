@@ -6,6 +6,7 @@ body {
   background: #282a36;
   color: #f8f8f2;
 }
+
 h1,
 h2,
 h3,
@@ -14,6 +15,19 @@ h5,
 h6,
 th {
   color: #ff79c6;
+}
+
+ul {
+  width: 50%;
+  min-width: 320px;
+}
+
+li {
+  margin-bottom: 1em;
+}
+
+li div:not(:last-of-type) {
+  margin-bottom: 1em;
 }
 
 .page {
@@ -68,4 +82,17 @@ tbody tr:hover td:first-of-type {
 tbody tr:hover td:last-of-type {
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
+}
+
+a {
+  color: #8be9fd;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #f1fa8c;
+}
+
+a:hover {
+  color: #50fa7b;
 }

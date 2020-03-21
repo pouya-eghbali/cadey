@@ -106,6 +106,9 @@ const rules = {
   },
   escapedList(cst) {
     return cst.raw.replace(/\\(.)/g, "\1");
+  },
+  colon() {
+    return ":";
   }
 };
 

@@ -4,6 +4,103 @@ This document contains the official specifications for Cadey.
 
 [heading :size 2 Cadey Syntax]
 
+Cadey has a very simple and minimal syntax:
+
+[set macroExample        [code :language cadey [:[italic this will be italic]:]]]
+[set listExample         [code :language cadey [:[: this is a list]:]]]
+[set escapedListExample  [code :language cadey [:[: all [italic tokens] are escaped :]:]]]
+[set namedParamExample   [:[code :language cadey [::keyword value:]] or [code :language cadey [:[:keyword value]:]]]]
+
+[
+  table
+  [:header Name                 Example                   Explanation]
+  [:row    Macro                [get macroExample]        [: A macro, calls a function with passed arguments]]
+  [:row    List                 [get listExample]         [: A list of tokens]]
+  [:row    [: Escaped List]     [get escapedListExample]  [: A list, but all inner macros and lists are escaped]]
+  [:row    [: Named parameter]  [get namedParamExample]   [: Named parameters, valid only in Macro blocks]]
+]
+
+[set listNamedParamExample [code :language javascript
+  [:
+image(
+  {
+    alt: [" ", "A", " ", "random", " ", "image!"]
+  },
+  ["https://source.unsplash.com/random"]
+);
+  :]
+]]
+
+[
+  list
+    [: A Macro starts with a \[ and ends with a \], first token in the list is the function or macro name
+       that will be called. All other tokens will be passed as arguments.
+       First token must only contain alphanumeric characters, underscore or dash.
+      
+       Example:
+       [code :language cadey [:[italic italic text]:]]
+
+       The above example will call a function named italic, passing the following list of parameters:
+
+       [code :language javascript [:[" ", "italic", " ", "text"]:]]
+
+       Whitespace tokens such as SPACE and NEWLINE will be a part of the parameters.
+    ]
+
+    [: A list starts with \[: and ends with \]. Macros in the list will run
+       before the list is passed to a function.
+
+       Example:
+       [code :language cadey [:[: this is a list]:]]
+
+       The above example translates to:
+       [code :language javascript [:[" ", "this", " ", "is", " ", "a", " ", "list"]:]]
+
+       Whitespace tokens such as SPACE and NEWLINE will be a part of the list.
+    ]
+
+    [: A escaped list starts with \[: and ends with :\]. All content will be escaped and considered as text.
+       
+       Example:
+       [code :language cadey [:[: a list [italic text]:]:]]
+
+       The above translates to:
+       [code :language javascript [:[" ", "a", " ", "list", " ", "[italic text]"]:]]
+    ]
+
+    [: A named parameter starts with a : and a token of alphanumeric characters, underscores or dashes immediately
+       after the colon. This token will be the name of the parameter, and the next token will be the value. Value
+       can be a word (alphanumeric, underscores and dashes), a macro, a list, or a escaped list.
+
+       Example:
+       [code :language cadey [:[heading :size 1 This is a heading]:]]
+
+       The above example will call a function named heading, passing the following as parameters:
+
+       [code :language javascript [: heading({ size: 1 }, [" ", "This", " ", "is", " ", "a", " ", "heading"]):]]
+
+       [: A list can be used as a named parameter, in this case the named parameter starts with
+          [: then a word as the name of the parameter, then one or several values for this parameter, then a ]
+          to mark the end of the contents for this parameter.
+       :]
+
+       Example:
+       [code :language cadey [:[image [:alt A random image!] https://source.unsplash.com/random ]:]]
+
+       The above will call a function named image, passing the following as parameters:
+
+      [get listNamedParamExample]
+    ]
+
+    [: Characters like : and \[\] can be escaped by using \\.]
+
+    [: Order of parameters are preserved, however, order of named parameters are not. In other words, it does
+       not matter where the named parameter is located, or if it's in between other (un-named) parameters.
+    ]
+]
+
+[heading :size 2 Official Implementation]
+
 Cadey recognizes the following tokens at lexing level.
 This table is ordered by the precedence of the lexing rules.
 
@@ -18,15 +115,15 @@ This table is ordered by the precedence of the lexing rules.
 
 [
   table
-  [:header    [: Token name]   Regex                     Example    Explanation]
-  [:row       escaped       [get escapedRegex]        \\\[       [: Matches escaped characters]]
-  [:row       keyowrd       [get keyowrdRegex]        \:keyword  [: Matches keywords]]
-  [:row       colon         [get colonRegex]          \:         [: Matches a single colon character]]
-  [:row       word          [get wordRegex]           word       [: Matches a word (No [ or ] or \ or whitespaces) :]]
-  [:row       bracketLeft   [get bracketLeftRegex]    \[         [: Matches an opening bracket]]
-  [:row       bracketRight  [get bracketRightRegex]   \]         [: Matches a closing bracket]]
-  [:row       newline       [get newlineRegex]        [::]       [: Matches a new line or carriage return character]]
-  [:row       spaces        [get spacesRegex]         [::]       [: Matches several space characters]]
+  [:header  [: Token name]    Regex                     Example    Explanation]
+  [:row     escaped           [get escapedRegex]        \\\[       [: Matches escaped characters]]
+  [:row     keyowrd           [get keyowrdRegex]        \:keyword  [: Matches keywords]]
+  [:row     colon             [get colonRegex]          \:         [: Matches a single colon character]]
+  [:row     word              [get wordRegex]           word       [: Matches a word (No [ or ] or \ or whitespaces) :]]
+  [:row     bracketLeft       [get bracketLeftRegex]    \[         [: Matches an opening bracket]]
+  [:row     bracketRight      [get bracketRightRegex]   \]         [: Matches a closing bracket]]
+  [:row     newline           [get newlineRegex]        [::]       [: Matches a new line or carriage return character]]
+  [:row     spaces            [get spacesRegex]         [::]       [: Matches several space characters]]
 ]
 
-Cadey recognizes the following tokens at generator level.
+WIP.
