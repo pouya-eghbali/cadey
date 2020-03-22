@@ -9,11 +9,11 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "parcel": "^2.0.0-alpha.3.2",
+    "parcel": "^2.0.0-nightly.163",
     "stylus": "^0.54.7"
   },
   "dependencies": {
-    "undyne": "^0.1.1"
+    "undyne": "^0.1.4"
   },
   "browserslist": [
     "last 1 chrome versions"

@@ -146,8 +146,11 @@ Supported named parameters:
 
 [
   table
-    [:header Name     Type  Required Description                         ]
-    [:row    language Text  No       [: Language: used for highlighting ]]
+    [:header Name     Type  Required Description                          ]
+    [:row    language Text  No       [: Language: used for highlighting  ]]
+    [:row    content  Text  No       [: File path to read from, works on
+                                        node and on the browser.
+                                        Auto detects language.           ]]
 ]
 
 Example:

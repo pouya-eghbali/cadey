@@ -56,7 +56,14 @@ class CadeyEditor extends Undyne {
   }
 }
 
-const editor = new CadeyEditor(document.getElementById("editor"));
+const canvas = document.getElementById("editor");
+if (window.innerWidth < 600) {
+  const width = window.innerWidth - 64;
+  canvas.width = width;
+  canvas.setAttribute("width", width + "px");
+  canvas.style.width = width + "px";
+}
+const editor = new CadeyEditor(canvas);
 editor.content = `[heading :size 1 Cadey]
 
 This is [bold Cadey].
