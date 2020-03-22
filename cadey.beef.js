@@ -15,7 +15,7 @@ namedArgumentStart arguments => namedArgumentStart { argName: left.argName, cont
 namedArgumentStart bracketRight => namedArgument {argName: left.argName, content: left.content, raw: left.raw + right.raw }
 
 keyword whitespace => namedArgumentKeyword { argName: left.raw.slice(1), raw: left.raw + right.raw }
-namedArgumentKeyword word => namedArgument { argName: left.argName, content: [right], raw: left.raw + right.raw }
+namedArgumentKeyword word|listArgument => namedArgument { argName: left.argName, content: [right], raw: left.raw + right.raw }
 
 bracketLeft colon => listArgumentStart { content: [], raw: left.raw + right.raw }
 listArgumentStart arguments => listArgumentStart { content: [...left.content, right], raw: left.raw + right.raw }

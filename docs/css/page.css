@@ -17,6 +17,10 @@ th {
   color: #ff79c6;
 }
 
+h1 {
+  font-size: 1.75em;
+}
+
 ul {
   width: 50%;
   min-width: 320px;
@@ -95,4 +99,17 @@ a:visited {
 
 a:hover {
   color: #50fa7b;
+}
+
+.example {
+  padding-left: 1em;
+}
+
+.example > * {
+  margin-bottom: 1em;
+}
+
+img {
+  border-radius: 2px;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.4);
 }

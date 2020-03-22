@@ -12,9 +12,9 @@
 </head>
 <body>
   <article class="page">
-    <div> <h1>   Cadey Markup Language Specifications </h1> </div>
+    <div> <h1>Cadey Markup Language Specifications</h1> </div>
 <div> This document contains the official specifications for Cadey. </div>
-<div> <h2>   Cadey Syntax </h2> </div>
+<div> <h2>Cadey Syntax</h2> </div>
 <div> Cadey has a very simple and minimal syntax: </div>
 <div> 
 
@@ -82,8 +82,10 @@
 );</code></pre> </div> </li>
 <li> <div>  Characters like : and [] can be escaped by using \. </div> </li>
 <li> <div>  Order of parameters are preserved, however, order of named parameters are not. In other words, it does
-       not matter where the named parameter is located, or if it's in between other (un-named) parameters. </div> </li> </ul> </div>
-<div> <h2>   Official Implementation </h2> </div>
+       not matter where the named parameter is located, or if it's in between other (un-named) parameters. </div> </li>
+<li> <div>  If several named parameters with the same name are passed to a Macro, the parameter passed to the function
+       will be an array consisting of the values of each one of them. </div> </li> </ul> </div>
+<div> <h2>Official Implementation</h2> </div>
 <div> Cadey recognizes the following tokens at lexing level.
 This table is ordered by the precedence of the lexing rules. </div>
 <div> 
@@ -101,7 +103,7 @@ This table is ordered by the precedence of the lexing rules. </div>
 <th>                      Example </th>
 <th>     Explanation </th></tr> </thead>
         <tbody> <tr> <td>      escaped </td>
-<td>            <code class="lang-javascript">/^\./i</code> </td>
+<td>            <code class="lang-javascript">/^\\./i</code> </td>
 <td>         \[ </td>
 <td>         Matches escaped characters </td> </tr>
 <tr> <td>      keyowrd </td>
@@ -115,17 +117,17 @@ This table is ordered by the precedence of the lexing rules. </div>
 <tr> <td>      word </td>
 <td>               <code class="lang-javascript">/^[^\[\] \n\r\\]+/</code> </td>
 <td>            word </td>
-<td>         Matches a word (No [ or ] or  or whitespaces)  </td> </tr>
+<td>         Matches a word (No [ or ] or \ or whitespaces)  </td> </tr>
 <tr> <td>      bracketLeft </td>
-<td>        <code class="lang-javascript">/^\[/</code> </td>
+<td>        <code class="lang-javascript">/^\\\[/</code> </td>
 <td>     [ </td>
 <td>           Matches an opening bracket </td> </tr>
 <tr> <td>      bracketRight </td>
-<td>       <code class="lang-javascript">/^\]/</code> </td>
+<td>       <code class="lang-javascript">/^\\\]/</code> </td>
 <td>    ] </td>
 <td>           Matches a closing bracket </td> </tr>
 <tr> <td>      newline </td>
-<td>            <code class="lang-javascript">/^(\n|\n\r)/</code> </td>
+<td>            <code class="lang-javascript">/^(\\n|\\n\\r)/</code> </td>
 <td>         <span></span> </td>
 <td>         Matches a new line or carriage return character </td> </tr>
 <tr> <td>      spaces </td>
@@ -141,6 +143,7 @@ This table is ordered by the precedence of the lexing rules. </div>
     </div>
   </article>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/prism.min.js"></script>
+  <script src="/js/prism.cadey.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>
 </html>

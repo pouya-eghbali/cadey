@@ -1,4 +1,4 @@
-const { generate } = require("../generator");
+const { Generator } = require("../generator");
 const fs = require("fs");
 
 const template = file => content => `
@@ -22,14 +22,31 @@ const template = file => content => `
     </div>
   </article>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/prism.min.js"></script>
+  <script src="/js/prism.cadey.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>
 </html>
 `;
 
-["./specs.cadey"].forEach(file => {
+const asText = arr => {
+  if (typeof arr == "string") return arr;
+  return arr.map(asText).join("");
+};
+
+Generator.addMacros({
+  async example(options, ...args) {
+    const text = asText(args) + "\n";
+    const generated = await Generator.generate(text);
+    return `<div class="example"> ${generated} </div>`;
+  }
+});
+
+const files = ["./specs.cadey", "./learn.cadey"];
+
+files.forEach(file => {
+  console.log(`Building ${file}`);
   const source = fs.readFileSync(file).toString();
-  generate(source)
+  Generator.generate(source)
     .then(template(file))
     .then(result => fs.writeFileSync(`${file}.html`, result))
     .catch(console.trace);

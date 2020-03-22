@@ -55,16 +55,24 @@ const makeMultipleCells = (type, cells) =>
     .map(cell => makeCell(type, cell))
     .join("\n");
 
+const asText = arr => {
+  if (typeof arr == "string") return arr;
+  return arr
+    .map(asText)
+    .join("")
+    .trim();
+};
+
 const macros = {
   heading(options, ...args) {
     const { size } = options;
-    return `<h${size}> ${args.join("")} </h${size}>`;
+    return `<h${size}>${asText(args)}</h${size}>`;
   },
   bold(options, ...args) {
-    return `<b> ${args.join("")} </b>`;
+    return `<b> ${asText(args)} </b>`;
   },
   italic(options, ...args) {
-    return `<i> ${args.join("")} </i>`;
+    return `<i> ${asText(args)} </i>`;
   },
   strike(options, ...args) {
     return `<del> ${args.join("")} </del>`;
@@ -76,7 +84,8 @@ const macros = {
     if (width) atts.push(`width="${width}px"`);
     if (height) atts.push(`height="${height}px"`);
     atts.push(`src="${src}"`);
-    if (alt) atts.push(`alt="${alt.join(" ")}"`);
+    if (options.alt) atts.push(`alt="${asText(options.alt)}"`);
+    else if (alt) atts.push(`alt="${alt.join(" ")}"`);
     return `
       <span class="image-container">
         <img ${atts.join("")}>

@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/dracula-prism.css" />
+  <link rel="stylesheet" href="/css/page.css" />
+  <title>Cadey</title>
+</head>
+<body>
+  <article class="page">
+    <div> <h1>Learn Cadey</h1> </div>
+<div> Cadey is a simple and minimalistic markdown language.
+This is an example based tutorial. Let's start with the basics. </div>
+<div> <h2>Paragraphs</h2> </div>
+<div> Paragraphs are eliminated with two consecutive newline characters.
+The following Cadey document: </div>
+<div> <pre><code class="lang-cadey">This is a paragraph.
+
+This is another one,
+as you can see two new lines are needed to make a paragraph!</code></pre> </div>
+<div> Will be rendered as: </div>
+<div> <div class="example"> <div>   This is a paragraph. </div>
+<div> This is another one,
+as you can see two new lines are needed to make a paragraph! </div> </div> </div>
+<div> <h2>Macros</h2> </div>
+<div> Macros are used to generate more advanced content, for example italic or bold text: </div>
+<div> <code class="lang-cadey">[italic This will be italic]</code> </div>
+<div> Will be rendered as: </div>
+<div> <div class="example"> <div>  <i> This will be italic </i> </div> </div> </div>
+<div> In the above example we're using a Macro named "italic", passing "This will be italic" to it. </div>
+<div> Macros can be nested: </div>
+<div> <code class="lang-cadey">[italic italic and [bold bold]]</code> </div>
+<div> Will be rendered as: </div>
+<div> <div class="example"> <div>  <i> italic and <b> bold </b> </i> </div> </div> </div>
+<div> Macros can be included in paragraphs: </div>
+<div> <pre><code class="lang-cadey">This is a [italic paragraph].
+
+This is another one,
+as you can see [bold two] new lines are needed to make a paragraph!</code></pre> </div>
+<div> Will be rendered as: </div>
+<div> <div class="example"> <div>  
+This is a <i> paragraph </i>. </div>
+<div> This is another one,
+as you can see <b> two </b> new lines are needed to make a paragraph! </div> </div> </div>
+<div> <h2>Named Parameters</h2> </div>
+<div> Other than text (un-named parameters), you can pass named parameters to Macros as well: </div>
+<div> <pre><code class="lang-cadey">[heading :size 1 Size is one]
+[heading :size 2 Size is two]
+[heading :size 3 Size is three]
+[heading :size 4 Size is four]
+[heading :size 5 Size is five]</code></pre> </div>
+<div> Will be rendered as: </div>
+<div> <div class="example"> <div>  <h1>Size is one</h1>
+<h2>Size is two</h2>
+<h3>Size is three</h3>
+<h4>Size is four</h4>
+<h5>Size is five</h5> </div> </div> </div>
+<div> <h2>List Parameters</h2> </div>
+<div> Let's add a random image to our Cadey document: </div>
+<div> <code class="lang-cadey">[image :alt image https://source.unsplash.com/random/300x180]</code> </div>
+<div> will be rendered as: </div>
+<div> <div class="example"> <div>  
+      <span class="image-container">
+        <img src="https://source.unsplash.com/random/300x180"alt="image">
+      </span>
+     </div> </div> </div>
+<div> To pass several words, or a sentence, as the value of a named parameter, we can use lists: </div>
+<div> <code class="lang-cadey">[image :alt [: A random image] https://source.unsplash.com/random/300x180]</code> </div>
+<div> will be rendered as: </div>
+<div> <div class="example"> <div>  
+      <span class="image-container">
+        <img src="https://source.unsplash.com/random/300x180"alt="A random image">
+      </span>
+     </div> </div> </div>
+<div> An alternate form for the above is: </div>
+<div> <code class="lang-cadey">[image [:alt A random image] https://source.unsplash.com/random/300x180]</code> </div>
+<div> Lists can be used as un-named variables as well: </div>
+<div> <code class="lang-cadey">[italic [: this is a list]]</code> </div>
+<div> will be rendered as: </div>
+<div> <div class="example"> <div>  <i> this is a list </i> </div> </div> </div>
+<div> <h2>Escaping Special Characters</h2> </div>
+<div> Some characters have special meaning in Cadey, for example [ and ] and :.
+If you want to write [ or ] in a paragraph, or in a List or Macro, you will need to escape them with a \: </div>
+<div> <code class="lang-cadey">Escaped \[ and \]</code> </div>
+<div> You need to escape : at beginning of words inside Macros: </div>
+<div> <code class="lang-cadey">[italic \:escaped]</code> </div>
+<div> These will render as: </div>
+<div> <div class="example"> <div>   Escaped [ and ]  </div> </div>
+<div class="example"> <div>  <i> :escaped </i> </div> </div> </div>
+<div> <h2>Escaped List</h2> </div>
+<div> Sometimes there are too many special characters in a block of text to escape with \.
+If that is the case, we can use a Escaped List: </div>
+<div> <code class="lang-cadey">[italic [:[All of [bold this] is escaped]:]]</code> </div>
+<div> Will be rendered as: </div>
+<div> <div class="example"> <div>  <i> [All of [bold this] is escaped] </i> </div> </div> </div>
+    <div>
+      Generated by Cadey 0.0.2. View source
+      <a href="https://github.com/pouya-eghbali/cadey/blob/master/docs/./learn.cadey">here</a>.
+    </div>
+  </article>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/prism.min.js"></script>
+  <script src="/js/prism.cadey.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</body>
+</html>

@@ -81,7 +81,7 @@ const rules = {
     if (raw.endsWith(":]"))
       return [
         content
-          .map(({ name, raw }) => (name == "escaped" ? raw.slice(1) : raw))
+          .map(({ raw }) => raw)
           .join("")
           .replace(/:\s*$/, "")
       ];
@@ -117,3 +117,6 @@ const generate = input => Generator.generate(input);
 
 module.exports.generate = generate;
 module.exports.rules = rules;
+module.exports.macros = macros;
+module.exports.Cadey = Cadey;
+module.exports.Generator = Generator;

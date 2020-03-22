@@ -1,0 +1,134 @@
+[heading :size 1 Learn Cadey]
+
+Cadey is a simple and minimalistic markdown language.
+This is an example based tutorial. Let's start with the basics.
+
+[heading :size 2 Paragraphs]
+
+Paragraphs are eliminated with two consecutive newline characters.
+The following Cadey document:
+
+[code :language cadey [: This is a paragraph.
+
+This is another one,
+as you can see two new lines are needed to make a paragraph!
+:]]
+
+Will be rendered as:
+
+[example [: This is a paragraph.
+
+This is another one,
+as you can see two new lines are needed to make a paragraph!:]]
+
+[heading :size 2 Macros]
+
+Macros are used to generate more advanced content, for example italic or bold text:
+
+[code :language cadey [:[italic This will be italic]:]]
+
+Will be rendered as:
+
+[example [:[italic This will be italic]:]]
+
+In the above example we're using a Macro named "italic", passing "This will be italic" to it.
+
+Macros can be nested:
+
+[code :language cadey [:[italic italic and [bold bold]]:]]
+
+Will be rendered as:
+
+[example [:[italic italic and [bold bold]]:]]
+
+Macros can be included in paragraphs:
+
+[code :language cadey [: This is a [italic paragraph].
+
+This is another one,
+as you can see [bold two] new lines are needed to make a paragraph!
+:]]
+
+Will be rendered as:
+
+[example [:
+This is a [italic paragraph].
+
+This is another one,
+as you can see [bold two] new lines are needed to make a paragraph!
+:]]
+
+[heading :size 2 Named Parameters]
+
+Other than text (un-named parameters), you can pass named parameters to Macros as well:
+
+[code :language cadey [:[heading :size 1 Size is one]
+[heading :size 2 Size is two]
+[heading :size 3 Size is three]
+[heading :size 4 Size is four]
+[heading :size 5 Size is five]:]]
+
+Will be rendered as:
+
+[example [:[heading :size 1 Size is one]
+[heading :size 2 Size is two]
+[heading :size 3 Size is three]
+[heading :size 4 Size is four]
+[heading :size 5 Size is five]:]]
+
+[heading :size 2 List Parameters]
+
+Let's add a random image to our Cadey document:
+
+[code :language cadey [:[image :alt image https://source.unsplash.com/random/300x180]:]]
+
+will be rendered as:
+
+[example [:[image :alt image https://source.unsplash.com/random/300x180]:]]
+
+To pass several words, or a sentence, as the value of a named parameter, we can use lists:
+
+[code :language cadey [:[image :alt [: A random image] https://source.unsplash.com/random/300x180]:]]
+
+will be rendered as:
+
+[example [:[image :alt [: A random image] https://source.unsplash.com/random/300x180]:]]
+
+An alternate form for the above is:
+
+[code :language cadey [:[image [:alt A random image] https://source.unsplash.com/random/300x180]:]]
+
+Lists can be used as un-named variables as well:
+
+[code :language cadey [:[italic [: this is a list]]:]]
+
+will be rendered as:
+
+[example [:[italic [: this is a list]]:]]
+
+[heading :size 2 Escaping Special Characters]
+
+Some characters have special meaning in Cadey, for example \[ and \] and \:.
+If you want to write \[ or \] in a paragraph, or in a List or Macro, you will need to escape them with a \\:
+
+[code :language cadey [: Escaped \[ and \] :]]
+
+You need to escape : at beginning of words inside Macros:
+
+[code :language cadey [:[italic \:escaped]:]]
+
+These will render as:
+
+[example [: Escaped \[ and \] :]]
+[example [:[italic \:escaped]:]]
+
+[heading :size 2 Escaped List]
+
+Sometimes there are too many special characters in a block of text to escape with \\.
+If that is the case, we can use a Escaped List:
+
+[code :language cadey [:[italic [:[All of [bold this] is escaped]:]]:]]
+
+Will be rendered as:
+
+[example [:[italic [:[All of [bold this] is escaped]:]]:]]

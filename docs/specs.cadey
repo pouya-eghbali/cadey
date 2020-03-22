@@ -97,6 +97,10 @@ image(
     [: Order of parameters are preserved, however, order of named parameters are not. In other words, it does
        not matter where the named parameter is located, or if it's in between other (un-named) parameters.
     ]
+
+    [: If several named parameters with the same name are passed to a Macro, the parameter passed to the function
+       will be an array consisting of the values of each one of them.
+    ]
 ]
 
 [heading :size 2 Official Implementation]
