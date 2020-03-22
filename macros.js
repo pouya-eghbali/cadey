@@ -1,6 +1,9 @@
 const fs = require("fs");
 const path = require("path");
 const mime = require("mime-types");
+const slugifyLib = require("slugify");
+
+const slugify = str => slugifyLib(str, { lower: true, strict: true });
 
 const readFromFs = src =>
   fs.readFileSync(path.join(process.cwd(), src)).toString();
@@ -65,8 +68,16 @@ const asText = arr => {
 
 const macros = {
   heading(options, ...args) {
-    const { size } = options;
-    return `<h${size}>${asText(args)}</h${size}>`;
+    const { size = 1 } = options;
+    const title = asText(args);
+    const anchor = slugify(title);
+    return `
+      <h${size} id="${anchor}">
+        <a href="#${anchor}">
+          ${title}
+        </a>
+      </h${size}>
+      `;
   },
   bold(options, ...args) {
     return `<b> ${asText(args)} </b>`;
@@ -75,17 +86,17 @@ const macros = {
     return `<i> ${asText(args)} </i>`;
   },
   strike(options, ...args) {
-    return `<del> ${args.join("")} </del>`;
+    return `<s>${asText(args)}</s>`;
   },
   image(options, ...args) {
     const { width, height } = options;
-    const [src, alt = ""] = args.filter(arg => !arg.match(/^\s+$/));
+    const [src, ...alt] = args.filter(arg => !arg.match(/^\s+$/));
     const atts = [];
     if (width) atts.push(`width="${width}px"`);
     if (height) atts.push(`height="${height}px"`);
     atts.push(`src="${src}"`);
     if (options.alt) atts.push(`alt="${asText(options.alt)}"`);
-    else if (alt) atts.push(`alt="${alt.join(" ")}"`);
+    else if (alt) atts.push(`alt="${asText(alt)}"`);
     return `
       <span class="image-container">
         <img ${atts.join("")}>
@@ -93,8 +104,8 @@ const macros = {
     `;
   },
   link(options, ...args) {
-    const [href, ...text] = args.filter(arg => !arg.match(/^ +$/));
-    return `<a href="${href}">${text.join(" ")}</a>`;
+    const [href, ...text] = args.slice(1);
+    return `<a href="${href}">${text ? asText(text) : href}</a>`;
   },
   table(options, ...args) {
     const { row, header } = options;

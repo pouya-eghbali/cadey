@@ -27,7 +27,7 @@ ul {
 }
 
 li {
-  margin-bottom: 1em;
+  margin-bottom: 0.5em;
 }
 
 li div:not(:last-of-type) {
@@ -112,4 +112,56 @@ a:hover {
 img {
   border-radius: 2px;
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.4);
+}
+
+ol ul li,
+ul ol li {
+  margin-bottom: 0;
+}
+
+ol ul,
+ul ol {
+  margin-top: 0.5em;
+}
+
+h1 a,
+h1 a:visited,
+h2 a,
+h2 a:visited,
+h3 a,
+h3 a:visited,
+h4 a,
+h4 a:visited,
+h5 a,
+h5 a:visited,
+h6 a,
+h6 a:visited {
+  color: #ff79c6;
+}
+
+h1 a:before,
+h2 a:before,
+h3 a:before,
+h4 a:before,
+h5 a:before,
+h6 a:before {
+  content: "";
+  margin-left: -1.5em;
+  height: 0.7em;
+  width: 1em;
+  background-image: url(/img/anchor.svg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  display: inline-block;
+  filter: invert(1);
+  opacity: 0;
+}
+
+h1 a:hover:before,
+h2 a:hover:before,
+h3 a:hover:before,
+h4 a:hover:before,
+h5 a:hover:before,
+h6 a:hover:before {
+  opacity: 1;
 }

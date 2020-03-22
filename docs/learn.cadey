@@ -80,23 +80,23 @@ Will be rendered as:
 
 Let's add a random image to our Cadey document:
 
-[code :language cadey [:[image :alt image https://source.unsplash.com/random/300x180]:]]
+[code :language cadey [:[image :alt Jelly :width 300 /img/jelly.jpg]:]]
 
 will be rendered as:
 
-[example [:[image :alt image https://source.unsplash.com/random/300x180]:]]
+[example [:[image :alt Jelly :width 300 /img/jelly.jpg]:]]
 
 To pass several words, or a sentence, as the value of a named parameter, we can use lists:
 
-[code :language cadey [:[image :alt [: A random image] https://source.unsplash.com/random/300x180]:]]
+[code :language cadey [:[image :alt [: Neon Jelly] :width 300 /img/jelly.jpg]:]]
 
 will be rendered as:
 
-[example [:[image :alt [: A random image] https://source.unsplash.com/random/300x180]:]]
+[example [:[image :alt [: Neon Jelly] :width 300 /img/jelly.jpg]:]]
 
 An alternate form for the above is:
 
-[code :language cadey [:[image [:alt A random image] https://source.unsplash.com/random/300x180]:]]
+[code :language cadey [:[image [:alt Neon Jelly] :width 300 /img/jelly.jpg]:]]
 
 Lists can be used as un-named variables as well:
 
@@ -132,3 +132,8 @@ If that is the case, we can use a Escaped List:
 Will be rendered as:
 
 [example [:[italic [:[All of [bold this] is escaped]:]]:]]
+
+[heading :size 2 Available Macros]
+
+Now that you've learned the basics of Cadey and its syntax, you can learn about the
+available Macros [link /macros.cadey.html here].

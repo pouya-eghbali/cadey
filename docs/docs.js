@@ -41,7 +41,7 @@ Generator.addMacros({
   }
 });
 
-const files = ["./specs.cadey", "./learn.cadey"];
+const files = ["./specs.cadey", "./learn.cadey", "./macros.cadey"];
 
 files.forEach(file => {
   console.log(`Building ${file}`);

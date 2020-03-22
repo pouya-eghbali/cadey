@@ -83,7 +83,7 @@
       ]
     },
     "link": {
-      "match": "(https?|ftp)://[^ ]+",
+      "match": "(https?|ftp)://[^ \\]\\[]+",
       "name": "markup.underline.link"
     },
     "builtins": {

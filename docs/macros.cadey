@@ -1,0 +1,260 @@
+[heading :size 1 Macros]
+
+It's easy to add Macros to Cadey or replace the built-in ones.
+This document lists the Macros available in the official implementation of Cadey.
+
+To get more info about Macros and how you should use them,
+always refer to the documentation of the implementation you're using.
+
+Please note Cadey is unstable at the moment and the API or Macro behavior may change in the future.
+
+Table of contents:
+
+[list :type ordered
+  [link #italic Italic]
+  [link #bold Bold]
+  [link #strike Strikethrough]
+  [link #heading Heading]
+  [link #link Link]
+  [link #image Image]
+  [link #code Code]
+  [:
+    [link #list List]
+    [list [link #nested-lists Nested Lists]]
+  ]
+  [link #table Table]
+]
+
+[heading :size 2 Italic]
+
+[code italic] is used to apply italic style to a block of text.
+
+Example:
+[code :language cadey [:[italic Cadey markup language]:]]
+
+Will be rendered as:
+
+[example [:[italic Cadey markup language]:]]
+
+[heading :size 2 Bold]
+
+[code bold] is used to apply bold style to a block of text.
+
+Example:
+[code :language cadey [:[bold Cadey markup language]:]]
+
+Will be rendered as:
+
+[example [:[bold Cadey markup language]:]]
+
+[heading :size 2 Strike]
+
+[code strike] is used to apply strikethrough style to a block of text.
+
+Example:
+[code :language cadey [:[strike Markdown] Cadey markup language:]]
+
+Will be rendered as:
+
+[example [:[strike Markdown] Cadey markup language:]]
+
+[heading :size 2 Heading]
+
+[code heading] is used to make a heading.
+
+Supported named parameters:
+
+[
+  table
+    [:header Name   Type    Required [: Default Value] Description           ]
+    [:row    size   Number  No       1                 [: HTML heading level]]
+]
+
+Example:
+
+[code :language cadey [:[heading :size 1 Size is one]
+[heading :size 2 Size is two]
+[heading :size 3 Size is three]
+[heading :size 4 Size is four]
+[heading :size 5 Size is five]:]]
+
+Will be rendered as:
+
+[example [:[heading :size 1 Size is one]
+[heading :size 2 Size is two]
+[heading :size 3 Size is three]
+[heading :size 4 Size is four]
+[heading :size 5 Size is five]:]]
+
+[heading :size 2 Link]
+
+[code link] is used to make a hyperlink.
+
+Supported parameters:
+
+[
+  table
+    [:header Position   Type  Required  [: Default Value] Description      ]
+    [:row    0          URL   Yes       [::]              [: Link address ]]
+    [:row    ...rest    Text  No        [: The URL]       [: Link title   ]]
+]
+
+Example:
+
+[code :language cadey [:[link https://cadey.io Cadey]:]]
+
+Will be rendered as:
+
+[example [:[link https://cadey.io Cadey]]]
+
+[heading :size 2 Image]
+
+[code image] is used to insert an image.
+
+Supported parameters:
+
+[
+  table
+    [:header Position   Type  Required  Description                              ]
+    [:row    0          URL   Yes       [: Image address                        ]]
+    [:row    ...rest    Text  No        [: Alt text (If :alt is not provided)  :]]
+]
+
+Supported named parameters:
+
+[
+  table
+    [:header Name   Type    Required  Description        ]
+    [:row    alt    Text    No        [: Image alt text ]]
+    [:row    width  Number  No        [: Image width    ]]
+    [:row    height Number  No        [: Image height   ]]
+]
+
+Example:
+
+[code :language cadey [:[image /img/jelly.jpg Neon Jelly :width 386 :height 256]:]]
+
+Will be rendered as:
+
+[example [:[image /img/jelly.jpg Neon Jelly :width 386 :height 256]:]]
+
+[heading :size 2 Code]
+
+[code code] is used to insert a code block into the document.
+
+Supported named parameters:
+
+[
+  table
+    [:header Name     Type  Required Description                         ]
+    [:row    language Text  No       [: Language: used for highlighting ]]
+]
+
+Example:
+
+[code :language cadey [:[code :language javascript [: console.log("Hello world!") :]]:]]
+
+Will be rendered as:
+
+[example [:[code :language javascript [: console.log("Hello world!") :]]:]]
+
+[heading :size 2 List]
+
+[code list] is used to insert a list into the document.
+
+Supported parameters:
+
+[
+  table
+    [:header Position   Type  Required  Description           ]
+    [:row    Any        Text  Yes       [: Items in the list ]]
+]
+
+Supported named parameters:
+
+[
+  table
+    [:header Name   Type  [: Valid Values]          Required Default    Description                  ]
+    [:row    type   Text  [: ordered or unordered]  No       unordered  [: Type of the list element ]]
+]
+
+Example:
+
+[code :language cadey [: Bands I like: [list :type ordered Metallica [: System Of A Down]]:]]
+
+Will be rendered as:
+
+[example [: Music I listen to: [list :type ordered Metallica [: System Of A Down]]:]]
+
+[heading :size 3 Nested Lists]
+
+You can nest lists like this:
+
+Example:
+
+[code :language cadey
+[:
+Songs I like:
+[list :type ordered 
+  [: Metallica:
+      [list
+        [: To Live Is To Die]
+        [: Eye of the Beholder]
+        [: Master of Puppets]]]
+  [: System Of A Down:
+      [list
+        I-E-A-I-A-I-O
+        [: Chic 'N' Stu]]]]
+:]
+]
+
+Will be rendered as:
+
+[example
+  [:
+    Songs I like:
+    [list :type ordered 
+      [: Metallica:
+          [list
+            [: To Live Is To Die]
+            [: Eye of the Beholder]
+            [: Master of Puppets]]]
+      [: System Of A Down:
+          [list
+            I-E-A-I-A-I-O
+            [: Chic 'N' Stu]]]]
+  :]
+]
+
+[heading :size 2 Table]
+
+[code table] is used to insert a table into the document.
+
+Supported named parameters:
+
+[
+  table
+    [:header Name    Type   Required Description             ]
+    [:row    header  Text   No       [: Header of the table ]]
+    [:row    row     Text   Yes      [: Table rows          ]]
+]
+
+Example:
+
+[code :language cadey [:
+[
+  table
+    [:header Name    Type   Required Description             ]
+    [:row    header  Text   No       [: Header of the table ]]
+    [:row    row     Text   Yes      [: Table rows          ]]
+]:]]
+
+Will be rendered as:
+
+[example [:
+[
+  table
+    [:header Name    Type   Required Description             ]
+    [:row    header  Text   No       [: Header of the table ]]
+    [:row    row     Text   Yes      [: Table rows          ]]
+]:]]

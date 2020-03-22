@@ -12,10 +12,22 @@
 </head>
 <body>
   <article class="page">
-    <div> <h1>Learn Cadey</h1> </div>
+    <div> 
+      <h1 id="learn-cadey">
+        <a href="#learn-cadey">
+          Learn Cadey
+        </a>
+      </h1>
+       </div>
 <div> Cadey is a simple and minimalistic markdown language.
 This is an example based tutorial. Let's start with the basics. </div>
-<div> <h2>Paragraphs</h2> </div>
+<div> 
+      <h2 id="paragraphs">
+        <a href="#paragraphs">
+          Paragraphs
+        </a>
+      </h2>
+       </div>
 <div> Paragraphs are eliminated with two consecutive newline characters.
 The following Cadey document: </div>
 <div> <pre><code class="lang-cadey">This is a paragraph.
@@ -26,7 +38,13 @@ as you can see two new lines are needed to make a paragraph!</code></pre> </div>
 <div> <div class="example"> <div>   This is a paragraph. </div>
 <div> This is another one,
 as you can see two new lines are needed to make a paragraph! </div> </div> </div>
-<div> <h2>Macros</h2> </div>
+<div> 
+      <h2 id="macros">
+        <a href="#macros">
+          Macros
+        </a>
+      </h2>
+       </div>
 <div> Macros are used to generate more advanced content, for example italic or bold text: </div>
 <div> <code class="lang-cadey">[italic This will be italic]</code> </div>
 <div> Will be rendered as: </div>
@@ -46,7 +64,13 @@ as you can see [bold two] new lines are needed to make a paragraph!</code></pre>
 This is a <i> paragraph </i>. </div>
 <div> This is another one,
 as you can see <b> two </b> new lines are needed to make a paragraph! </div> </div> </div>
-<div> <h2>Named Parameters</h2> </div>
+<div> 
+      <h2 id="named-parameters">
+        <a href="#named-parameters">
+          Named Parameters
+        </a>
+      </h2>
+       </div>
 <div> Other than text (un-named parameters), you can pass named parameters to Macros as well: </div>
 <div> <pre><code class="lang-cadey">[heading :size 1 Size is one]
 [heading :size 2 Size is two]
@@ -54,35 +78,77 @@ as you can see <b> two </b> new lines are needed to make a paragraph! </div> </d
 [heading :size 4 Size is four]
 [heading :size 5 Size is five]</code></pre> </div>
 <div> Will be rendered as: </div>
-<div> <div class="example"> <div>  <h1>Size is one</h1>
-<h2>Size is two</h2>
-<h3>Size is three</h3>
-<h4>Size is four</h4>
-<h5>Size is five</h5> </div> </div> </div>
-<div> <h2>List Parameters</h2> </div>
+<div> <div class="example"> <div>  
+      <h1 id="size-is-one">
+        <a href="#size-is-one">
+          Size is one
+        </a>
+      </h1>
+      
+
+      <h2 id="size-is-two">
+        <a href="#size-is-two">
+          Size is two
+        </a>
+      </h2>
+      
+
+      <h3 id="size-is-three">
+        <a href="#size-is-three">
+          Size is three
+        </a>
+      </h3>
+      
+
+      <h4 id="size-is-four">
+        <a href="#size-is-four">
+          Size is four
+        </a>
+      </h4>
+      
+
+      <h5 id="size-is-five">
+        <a href="#size-is-five">
+          Size is five
+        </a>
+      </h5>
+       </div> </div> </div>
+<div> 
+      <h2 id="list-parameters">
+        <a href="#list-parameters">
+          List Parameters
+        </a>
+      </h2>
+       </div>
 <div> Let's add a random image to our Cadey document: </div>
-<div> <code class="lang-cadey">[image :alt image https://source.unsplash.com/random/300x180]</code> </div>
+<div> <code class="lang-cadey">[image :alt Jelly :width 300 /img/jelly.jpg]</code> </div>
 <div> will be rendered as: </div>
 <div> <div class="example"> <div>  
       <span class="image-container">
-        <img src="https://source.unsplash.com/random/300x180"alt="image">
+        <img width="300px"src="/img/jelly.jpg"alt="Jelly">
       </span>
      </div> </div> </div>
 <div> To pass several words, or a sentence, as the value of a named parameter, we can use lists: </div>
-<div> <code class="lang-cadey">[image :alt [: A random image] https://source.unsplash.com/random/300x180]</code> </div>
+<div> <code class="lang-cadey">[image :alt [: Neon Jelly] :width 300 /img/jelly.jpg]</code> </div>
 <div> will be rendered as: </div>
 <div> <div class="example"> <div>  
       <span class="image-container">
-        <img src="https://source.unsplash.com/random/300x180"alt="A random image">
+        <img width="300px"src="/img/jelly.jpg"alt="Neon Jelly">
       </span>
      </div> </div> </div>
 <div> An alternate form for the above is: </div>
-<div> <code class="lang-cadey">[image [:alt A random image] https://source.unsplash.com/random/300x180]</code> </div>
+<div> <code class="lang-cadey">[image [:alt Neon Jelly] :width 300 /img/jelly.jpg]</code> </div>
 <div> Lists can be used as un-named variables as well: </div>
 <div> <code class="lang-cadey">[italic [: this is a list]]</code> </div>
 <div> will be rendered as: </div>
 <div> <div class="example"> <div>  <i> this is a list </i> </div> </div> </div>
-<div> <h2>Escaping Special Characters</h2> </div>
+<div> 
+      <h2 id="escaping-special-characters">
+        <a href="#escaping-special-characters">
+          Escaping Special Characters
+        </a>
+      </h2>
+       </div>
 <div> Some characters have special meaning in Cadey, for example [ and ] and :.
 If you want to write [ or ] in a paragraph, or in a List or Macro, you will need to escape them with a \: </div>
 <div> <code class="lang-cadey">Escaped \[ and \]</code> </div>
@@ -91,12 +157,27 @@ If you want to write [ or ] in a paragraph, or in a List or Macro, you will need
 <div> These will render as: </div>
 <div> <div class="example"> <div>   Escaped [ and ]  </div> </div>
 <div class="example"> <div>  <i> :escaped </i> </div> </div> </div>
-<div> <h2>Escaped List</h2> </div>
+<div> 
+      <h2 id="escaped-list">
+        <a href="#escaped-list">
+          Escaped List
+        </a>
+      </h2>
+       </div>
 <div> Sometimes there are too many special characters in a block of text to escape with \.
 If that is the case, we can use a Escaped List: </div>
 <div> <code class="lang-cadey">[italic [:[All of [bold this] is escaped]:]]</code> </div>
 <div> Will be rendered as: </div>
 <div> <div class="example"> <div>  <i> [All of [bold this] is escaped] </i> </div> </div> </div>
+<div> 
+      <h2 id="available-macros">
+        <a href="#available-macros">
+          Available Macros
+        </a>
+      </h2>
+       </div>
+<div> Now that you've learned the basics of Cadey and its syntax, you can learn about the
+available Macros <a href="/macros.cadey.html">here</a>. </div>
     <div>
       Generated by Cadey 0.0.2. View source
       <a href="https://github.com/pouya-eghbali/cadey/blob/master/docs/./learn.cadey">here</a>.
