@@ -1,4 +1,4 @@
-const { Generator } = require("../generator");
+const { Generator } = require("../../generator");
 const fs = require("fs");
 
 const template = file => content => `

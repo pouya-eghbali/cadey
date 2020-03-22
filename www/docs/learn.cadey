@@ -136,4 +136,4 @@ Will be rendered as:
 [heading :size 2 Available Macros]
 
 Now that you've learned the basics of Cadey and its syntax, you can learn about the
-available Macros [link /macros.cadey.html here].
+available Macros [link /docs/macros.cadey.html here].

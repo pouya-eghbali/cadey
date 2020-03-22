@@ -13,5 +13,8 @@
     "bean-parser": "^1.0.9",
     "mime-types": "^2.1.26",
     "slugify": "^1.4.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.0"
   }
 }
