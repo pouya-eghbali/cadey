@@ -72,7 +72,7 @@ This is [bold Cadey].
 Unlike Markdown, [bold Cadey]
 can be parsed with a real parser.
 [bold Cadey] has a well-defined
-[link https://cadey.io/docs/specs.cadey.html specification].
+[link /docs/specs.cadey.html specification].
 
 [bold Cadey] has features that cannot
 be found in Markdown.
