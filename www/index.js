@@ -106,4 +106,4 @@ const preview = () => {
 preview();
 
 document.getElementById("error").style.display = "none";
-editor.canvas.addEventListener("keydown", event => preview());
+editor.input.addEventListener("keydown", event => setTimeout(preview, 25));
