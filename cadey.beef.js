@@ -1,7 +1,7 @@
 module.exports = `alias whitespace spaces|newline
 alias textual word|whitespace|colon|escaped
 alias arguments textual|namedArgument|listArgument|macro
-alias content textual|macro|namedArgumentKeyword
+alias content textual|macro|namedArgumentKeyword|namedArgument|keyword
 
 bracketLeft whitespace => bracketLeft { raw: left.raw + right.raw }
 whitespace bracketRight => bracketRight { raw: left.raw + right.raw }
