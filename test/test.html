@@ -1,42 +1,230 @@
-<div> <h1>   Cadey </h1> </div>
-<div> <i>  This is <b>  Cadey </b> </i> </div>
-<div> Cadey is <i>  amazing </i>,
-and it's very <b>  fast </b>. </div>
-<div> 
-      <table>
-        <thead> <tr><th>   </th>
-<th> abc </th>
-<th>   </th>
-<th> xyz </th></tr> </thead>
-        <tbody> <tr> <td>   </td>
-<td> 123 </td>
-<td>   </td>
-<td> <i>  456 </i> </td> </tr>
-<tr> <td>   </td>
-<td> 123 </td>
-<td>   </td>
-<td> 456 </td> </tr> </tbody>
+<div>
+   
+  <h1 id="cadey">
+     
+    <a href="#cadey">
+       Cadey 
+    </a>
+     
+  </h1>
+   
+</div>
+
+
+<div>
+   
+  <i>
+     This is 
+    <b>
+       Cadey 
+    </b>
+     
+  </i>
+   
+</div>
+
+
+<div>
+   Cadey is 
+  <i>
+     amazing 
+  </i>
+  ,
+and it's very 
+  <b>
+     fast 
+  </b>
+  . 
+</div>
+
+
+<div>
+   
+  <table>
+     
+    <thead>
+       
+      <tr>
+        <th>
+           abc 
+        </th>
+        
+
+        <th>
+           xyz 
+        </th>
+        </tr>
+           
+        </thead>
+         
+        <tbody>
+           
+          <tr>
+             
+            <td>
+               123 
+            </td>
+            
+
+            <td>
+               
+              <i>
+                 456 
+              </i>
+               
+            </td>
+             
+          </tr>
+          
+
+          <tr>
+             
+            <td>
+               123 
+            </td>
+            
+
+            <td>
+               456 
+            </td>
+             
+          </tr>
+           
+        </tbody>
+         
       </table>
-     </div>
-<div> 
+       
+    </div>
+    
+
+    <div>
+       
       <span class="image-container">
-        <img width="300px"src="https://picsum.photos/300/200">
-      </span>
-     </div>
-<div> <a href="https://9gag.com">9gag!</a> </div>
-<div> <ul> <li>  this is a multiword item </li>
-<li> another </li>
-<li>  some text
-      <ol> <li> abc </li>
-<li> def </li>
-<li> ghi </li>
-<li> jkl </li> </ol> </li> </ul> </div>
-<div> <pre><code class="lang-javascript">console.log("hello world!")
-console.log("line breaks are preserved")</code></pre> </div>
-<div> <pre><code class="lang-javascript">const { generate } = require("../generator");
+         
+        <img width="300px"src="https://picsum.photos/300/200"alt="">
+           
+        </span>
+         
+      </div>
+      
+
+      <div>
+         
+        <a href="https://9gag.com">
+          9gag!
+        </a>
+         
+      </div>
+      
+
+      <div>
+         
+        <ul>
+           
+          <li>
+             
+            <div>
+               this is a multiword item 
+            </div>
+             
+          </li>
+          
+
+          <li>
+             
+            <div>
+               another 
+            </div>
+             
+          </li>
+          
+
+          <li>
+             
+            <div>
+               some text 
+              <ol>
+                 
+                <li>
+                   
+                  <div>
+                     abc 
+                  </div>
+                   
+                </li>
+                
+
+                <li>
+                   
+                  <div>
+                     def 
+                  </div>
+                   
+                </li>
+                
+
+                <li>
+                   
+                  <div>
+                     ghi 
+                  </div>
+                   
+                </li>
+                
+
+                <li>
+                   
+                  <div>
+                     jkl 
+                  </div>
+                   
+                </li>
+                 
+              </ol>
+               
+            </div>
+             
+          </li>
+           
+        </ul>
+         
+      </div>
+      
+
+      <div>
+         
+        <pre>
+          <code class="lang-javascript">
+            console.log("hello world!")
+console.log("line breaks are preserved")
+          </code>
+          </pre>
+             
+          </div>
+          
+
+          <div>
+             
+            <pre>
+              <code class="lang-javascript">
+                const { generate } = require("../generator");
+const format = require("../format");
 const fs = require("fs");
 const cadey = fs.readFileSync("./test.cadey").toString();
-generate(cadey).then(result => fs.writeFileSync("./test.html", result));
-</code></pre> </div>
-<div> <blockquote>  lorem ipsum </blockquote> </div>
-<div>  </div>
+generate(cadey)
+  .then(format)
+  .then(result => fs.writeFileSync("./test.html", result));
+
+              </code>
+              </pre>
+                 
+              </div>
+              
+
+              <div>
+                 
+                <blockquote>
+                   lorem ipsum 
+                </blockquote>
+                 
+              </div>
