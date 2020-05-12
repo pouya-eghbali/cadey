@@ -1,0 +1,89 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet"><link rel="stylesheet" href="/dracula-prism.71758df4.css"><link rel="stylesheet" href="/page.5e405413.css"><title>Cadey</title></head><body> <article class="page"> <div> <h1 id="cadey-markup-language-specifications"> <a href="#cadey-markup-language-specifications"> Cadey Markup Language Specifications </a> </h1> </div>
+<div> This document contains the official specifications for Cadey. </div>
+<div> <h2 id="cadey-syntax"> <a href="#cadey-syntax"> Cadey Syntax </a> </h2> </div>
+<div> Cadey has a very simple and minimal syntax: </div>
+<div> </div>
+<div> <table> <thead> <tr><th> Name </th>
+<th> Example </th>
+<th> Explanation </th></tr> </thead> <tbody> <tr> <td> Macro </td>
+<td> <code class="lang-cadey">[italic this will be italic]</code> </td>
+<td> A macro, calls a function with passed arguments </td> </tr>
+<tr> <td> List </td>
+<td> <code class="lang-cadey">[: this is a list]</code> </td>
+<td> A list of tokens </td> </tr>
+<tr> <td> Escaped List </td>
+<td> <code class="lang-cadey">[: all [italic tokens] are escaped :]</code> </td>
+<td> A list, but all inner macros and lists are escaped </td> </tr>
+<tr> <td> Named parameter </td>
+<td> <code class="lang-cadey">:keyword value</code> or <code class="lang-cadey">[:keyword value]</code> </td>
+<td> Named parameters, valid only in Macro blocks </td> </tr> </tbody> </table> </div>
+<div> </div>
+<div> <ul> <li> <div> A Macro starts with a [ and ends with a ], first token in the list is the function or macro name that will be called. All other tokens will be passed as arguments. First token must only contain alphanumeric characters, underscore or dash. </div>
+<div> Example: <code class="lang-cadey">[italic italic text]</code> </div>
+<div> The above example will call a function named italic, passing the following list of parameters: </div>
+<div> <code class="lang-javascript">[" ", "italic", " ", "text"]</code> </div>
+<div> Whitespace tokens such as SPACE and NEWLINE will be a part of the parameters. </div> </li>
+<li> <div> A list starts with [: and ends with ]. Macros in the list will run before the list is passed to a function. </div>
+<div> Example: <code class="lang-cadey">[: this is a list]</code> </div>
+<div> The above example translates to: <code class="lang-javascript">[" ", "this", " ", "is", " ", "a", " ", "list"]</code> </div>
+<div> Whitespace tokens such as SPACE and NEWLINE will be a part of the list. </div> </li>
+<li> <div> A escaped list starts with [: and ends with :]. All content will be escaped and considered as text. </div>
+<div> Example: <code class="lang-cadey">[: a list [italic text]:]</code> </div>
+<div> The above translates to: <code class="lang-javascript">[" ", "a", " ", "list", " ", "[italic text]"]</code> </div> </li>
+<li> <div> A named parameter starts with a : and a token of alphanumeric characters, underscores or dashes immediately after the colon. This token will be the name of the parameter, and the next token will be the value. Value can be a word (alphanumeric, underscores and dashes), a macro, a list, or a escaped list. </div>
+<div> Example: <code class="lang-cadey">[heading :size 1 This is a heading]</code> </div>
+<div> The above example will call a function named heading, passing the following as parameters: </div>
+<div> <code class="lang-javascript">heading({ size: 1 }, [" ", "This", " ", "is", " ", "a", " ", "heading"])</code> </div>
+<div> A list can be used as a named parameter, in this case the named parameter starts with [: then a word as the name of the parameter, then one or several values for this parameter, then a ] to mark the end of the contents for this parameter. </div>
+<div> Example: <code class="lang-cadey">[image [:alt A random image!] https://source.unsplash.com/random ]</code> </div>
+<div> The above will call a function named image, passing the following as parameters: </div>
+<div> <pre><code class="lang-javascript">image(
+  {
+    alt: [" ", "A", " ", "random", " ", "image!"]
+  },
+  ["https://source.unsplash.com/random"]
+);</code></pre> </div> </li>
+<li> <div> Characters like : and [] can be escaped by using \. </div> </li>
+<li> <div> Order of parameters are preserved, however, order of named parameters are not. In other words, it does not matter where the named parameter is located, or if it's in between other (un-named) parameters. </div> </li>
+<li> <div> If several named parameters with the same name are passed to a Macro, the parameter passed to the function will be an array consisting of the values of each one of them. </div> </li> </ul> </div>
+<div> <h2 id="official-implementation"> <a href="#official-implementation"> Official Implementation </a> </h2> </div>
+<div> Cadey recognizes the following tokens at lexing level.
+This table is ordered by the precedence of the lexing rules. </div>
+<div> </div>
+<div> <table> <thead> <tr><th> Token name </th>
+<th> Regex </th>
+<th> Example </th>
+<th> Explanation </th></tr> </thead> <tbody> <tr> <td> escaped </td>
+<td> <code class="lang-javascript">/^\\./i</code> </td>
+<td> \[ </td>
+<td> Matches escaped characters </td> </tr>
+<tr> <td> keyowrd </td>
+<td> <code class="lang-javascript">/^:[a-z0-9.-]+/i</code> </td>
+<td> :keyword </td>
+<td> Matches keywords </td> </tr>
+<tr> <td> colon </td>
+<td> <code class="lang-javascript">/^:/</code> </td>
+<td> : </td>
+<td> Matches a single colon character </td> </tr>
+<tr> <td> word </td>
+<td> <code class="lang-javascript">/^[^\[\] \n\r\\]+/</code> </td>
+<td> word </td>
+<td> Matches a word (No [ or ] or \ or whitespaces) </td> </tr>
+<tr> <td> bracketLeft </td>
+<td> <code class="lang-javascript">/^\\\[/</code> </td>
+<td> [ </td>
+<td> Matches an opening bracket </td> </tr>
+<tr> <td> bracketRight </td>
+<td> <code class="lang-javascript">/^\\\]/</code> </td>
+<td> ] </td>
+<td> Matches a closing bracket </td> </tr>
+<tr> <td> newline </td>
+<td> <code class="lang-javascript">/^(\\n|\\n\\r)/</code> </td>
+<td> <span></span> </td>
+<td> Matches a new line or carriage return character </td> </tr>
+<tr> <td> spaces </td>
+<td> <code class="lang-javascript">/ +/</code> </td>
+<td> <span></span> </td>
+<td> Matches several space characters </td> </tr> </tbody> </table> </div>
+<div> WIP. </div> <div> Generated by Cadey 0.0.2. View source <a href="https://github.com/pouya-eghbali/cadey/blob/master/www/docs/./specs.cadey">here</a>. </div> </article> <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/prism.min.js"></script> <script src="/prism.cadey.16817428.js"></script> <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</body></html>

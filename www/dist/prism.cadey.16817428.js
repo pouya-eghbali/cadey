@@ -1,0 +1,1 @@
+Prism.languages.cadey={property:[{pattern:/(\[:[a-z0-9_-]+ +)[^\[\]]+/i,lookbehind:!0},{pattern:/((?<!\\):[a-z0-9_-]+ +)[a-z0-9_-]+/i,lookbehind:!0}],keyword:{pattern:/(?<!\\):[a-z0-9_-]+/i,lookbehind:!1},function:{pattern:/((?<!\\\[)(?<!\[:.*?)\[)[a-z0-9_-]+/i,lookbehind:!0},utl:{pattern:/(https?|s?ftp|file):\/\/[^ \]\[]+/i}};

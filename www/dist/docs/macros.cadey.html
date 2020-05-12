@@ -1,0 +1,208 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet"><link rel="stylesheet" href="/dracula-prism.71758df4.css"><link rel="stylesheet" href="/page.5e405413.css"><title>Cadey</title></head><body> <article class="page"> <div> <h1 id="macros"> <a href="#macros"> Macros </a> </h1> </div>
+<div> It's easy to add Macros to Cadey or replace the built-in ones.
+This document lists the Macros available in the official implementation of Cadey. </div>
+<div> To get more info about Macros and how you should use them,
+always refer to the documentation of the implementation you're using. </div>
+<div> Please note Cadey is unstable at the moment and the API or Macro behavior may change in the future. </div>
+<div> Table of contents: </div>
+<div> <ol> <li> <div> <a href="#italic">Italic</a> </div> </li>
+<li> <div> <a href="#bold">Bold</a> </div> </li>
+<li> <div> <a href="#strike">Strikethrough</a> </div> </li>
+<li> <div> <a href="#heading">Heading</a> </div> </li>
+<li> <div> <a href="#link">Link</a> </div> </li>
+<li> <div> <a href="#image">Image</a> </div> </li>
+<li> <div> <a href="#code">Code</a> </div> </li>
+<li> <div> <a href="#list">List</a> <ul> <li> <div> <a href="#nested-lists">Nested Lists</a> </div> </li> </ul> </div> </li>
+<li> <div> <a href="#table">Table</a> </div> </li> </ol> </div>
+<div> <h2 id="italic"> <a href="#italic"> Italic </a> </h2> </div>
+<div> <code>italic</code> is used to apply italic style to a block of text. </div>
+<div> Example:
+<code class="lang-cadey">[italic Cadey markup language]</code> </div>
+<div> Will be rendered as: </div>
+<div> <div class="example"> <div> <i> Cadey markup language </i> </div> </div> </div>
+<div> <h2 id="bold"> <a href="#bold"> Bold </a> </h2> </div>
+<div> <code>bold</code> is used to apply bold style to a block of text. </div>
+<div> Example:
+<code class="lang-cadey">[bold Cadey markup language]</code> </div>
+<div> Will be rendered as: </div>
+<div> <div class="example"> <div> <b> Cadey markup language </b> </div> </div> </div>
+<div> <h2 id="strike"> <a href="#strike"> Strike </a> </h2> </div>
+<div> <code>strike</code> is used to apply strikethrough style to a block of text. </div>
+<div> Example:
+<code class="lang-cadey">[strike Markdown] Cadey markup language</code> </div>
+<div> Will be rendered as: </div>
+<div> <div class="example"> <div> <s>Markdown</s> Cadey markup language </div> </div> </div>
+<div> <h2 id="heading"> <a href="#heading"> Heading </a> </h2> </div>
+<div> <code>heading</code> is used to make a heading. </div>
+<div> Supported named parameters: </div>
+<div> <table> <thead> <tr><th> Name </th>
+<th> Type </th>
+<th> Required </th>
+<th> Default Value </th>
+<th> Description </th></tr> </thead> <tbody> <tr><td> size </td>
+<td> Number </td>
+<td> No </td>
+<td> 1 </td>
+<td> HTML heading level </td></tr> </tbody> </table> </div>
+<div> Example: </div>
+<div> <pre><code class="lang-cadey">[heading :size 1 Size is one]
+[heading :size 2 Size is two]
+[heading :size 3 Size is three]
+[heading :size 4 Size is four]
+[heading :size 5 Size is five]</code></pre> </div>
+<div> Will be rendered as: </div>
+<div> <div class="example"> <div> <h1 id="size-is-one"> <a href="#size-is-one"> Size is one </a> </h1> <h2 id="size-is-two"> <a href="#size-is-two"> Size is two </a> </h2> <h3 id="size-is-three"> <a href="#size-is-three"> Size is three </a> </h3> <h4 id="size-is-four"> <a href="#size-is-four"> Size is four </a> </h4> <h5 id="size-is-five"> <a href="#size-is-five"> Size is five </a> </h5> </div> </div> </div>
+<div> <h2 id="link"> <a href="#link"> Link </a> </h2> </div>
+<div> <code>link</code> is used to make a hyperlink. </div>
+<div> Supported parameters: </div>
+<div> <table> <thead> <tr><th> Position </th>
+<th> Type </th>
+<th> Required </th>
+<th> Default Value </th>
+<th> Description </th></tr> </thead> <tbody> <tr> <td> 0 </td>
+<td> URL </td>
+<td> Yes </td>
+<td> <span></span> </td>
+<td> Link address </td> </tr>
+<tr> <td> ...rest </td>
+<td> Text </td>
+<td> No </td>
+<td> The URL </td>
+<td> Link title </td> </tr> </tbody> </table> </div>
+<div> Example: </div>
+<div> <code class="lang-cadey">[link https://cadey.io Cadey]</code> </div>
+<div> Will be rendered as: </div>
+<div> <div class="example"> <div> <a href="https://cadey.io">Cadey</a> </div> </div> </div>
+<div> <h2 id="image"> <a href="#image"> Image </a> </h2> </div>
+<div> <code>image</code> is used to insert an image. </div>
+<div> Supported parameters: </div>
+<div> <table> <thead> <tr><th> Position </th>
+<th> Type </th>
+<th> Required </th>
+<th> Description </th></tr> </thead> <tbody> <tr> <td> 0 </td>
+<td> URL </td>
+<td> Yes </td>
+<td> Image address </td> </tr>
+<tr> <td> ...rest </td>
+<td> Text </td>
+<td> No </td>
+<td> Alt text (If :alt is not provided) </td> </tr> </tbody> </table> </div>
+<div> Supported named parameters: </div>
+<div> <table> <thead> <tr><th> Name </th>
+<th> Type </th>
+<th> Required </th>
+<th> Description </th></tr> </thead> <tbody> <tr> <td> alt </td>
+<td> Text </td>
+<td> No </td>
+<td> Image alt text </td> </tr>
+<tr> <td> width </td>
+<td> Number </td>
+<td> No </td>
+<td> Image width </td> </tr>
+<tr> <td> height </td>
+<td> Number </td>
+<td> No </td>
+<td> Image height </td> </tr> </tbody> </table> </div>
+<div> Example: </div>
+<div> <code class="lang-cadey">[image /img/jelly.jpg Neon Jelly :width 386 :height 256]</code> </div>
+<div> Will be rendered as: </div>
+<div> <div class="example"> <div> <span class="image-container"> <img width="386px" height="256px" src="/jelly.33de0deb.jpg" alt="NeonJelly"> </span> </div> </div> </div>
+<div> <h2 id="code"> <a href="#code"> Code </a> </h2> </div>
+<div> <code>code</code> is used to insert a code block into the document. </div>
+<div> Supported named parameters: </div>
+<div> <table> <thead> <tr><th> Name </th>
+<th> Type </th>
+<th> Required </th>
+<th> Description </th></tr> </thead> <tbody> <tr> <td> language </td>
+<td> Text </td>
+<td> No </td>
+<td> Language: used for highlighting </td> </tr>
+<tr> <td> content </td>
+<td> Text </td>
+<td> No </td>
+<td> File path to read from, works on node and on the browser. Auto detects language. </td> </tr> </tbody> </table> </div>
+<div> Example: </div>
+<div> <code class="lang-cadey">[code :language javascript [: console.log("Hello world!") :]]</code> </div>
+<div> Will be rendered as: </div>
+<div> <div class="example"> <div> <code class="lang-javascript">console.log("Hello world!")</code> </div> </div> </div>
+<div> <h2 id="list"> <a href="#list"> List </a> </h2> </div>
+<div> <code>list</code> is used to insert a list into the document. </div>
+<div> Supported parameters: </div>
+<div> <table> <thead> <tr><th> Position </th>
+<th> Type </th>
+<th> Required </th>
+<th> Description </th></tr> </thead> <tbody> <tr><td> Any </td>
+<td> Text </td>
+<td> Yes </td>
+<td> Items in the list </td></tr> </tbody> </table> </div>
+<div> Supported named parameters: </div>
+<div> <table> <thead> <tr><th> Name </th>
+<th> Type </th>
+<th> Valid Values </th>
+<th> Required </th>
+<th> Default </th>
+<th> Description </th></tr> </thead> <tbody> <tr><td> type </td>
+<td> Text </td>
+<td> ordered or unordered </td>
+<td> No </td>
+<td> unordered </td>
+<td> Type of the list element </td></tr> </tbody> </table> </div>
+<div> Example: </div>
+<div> <code class="lang-cadey">Bands I like: [list :type ordered Metallica [: System Of A Down]]</code> </div>
+<div> Will be rendered as: </div>
+<div> <div class="example"> <div> Music I listen to: <ol> <li> <div> Metallica </div> </li>
+<li> <div> System Of A Down </div> </li> </ol> </div> </div> </div>
+<div> <h3 id="nested-lists"> <a href="#nested-lists"> Nested Lists </a> </h3> </div>
+<div> You can nest lists like this: </div>
+<div> Example: </div>
+<div> <pre><code class="lang-cadey">Songs I like:
+[list :type ordered 
+  [: Metallica:
+      [list
+        [: To Live Is To Die]
+        [: Eye of the Beholder]
+        [: Master of Puppets]]]
+  [: System Of A Down:
+      [list
+        I-E-A-I-A-I-O
+        [: Chic 'N' Stu]]]]</code></pre> </div>
+<div> Will be rendered as: </div>
+<div> <div class="example"> <div> Songs I like: <ol> <li> <div> Metallica: <ul> <li> <div> To Live Is To Die </div> </li>
+<li> <div> Eye of the Beholder </div> </li>
+<li> <div> Master of Puppets </div> </li> </ul> </div> </li>
+<li> <div> System Of A Down: <ul> <li> <div> I-E-A-I-A-I-O </div> </li>
+<li> <div> Chic 'N' Stu </div> </li> </ul> </div> </li> </ol> </div> </div> </div>
+<div> <h2 id="table"> <a href="#table"> Table </a> </h2> </div>
+<div> <code>table</code> is used to insert a table into the document. </div>
+<div> Supported named parameters: </div>
+<div> <table> <thead> <tr><th> Name </th>
+<th> Type </th>
+<th> Required </th>
+<th> Description </th></tr> </thead> <tbody> <tr> <td> header </td>
+<td> Text </td>
+<td> No </td>
+<td> Header of the table </td> </tr>
+<tr> <td> row </td>
+<td> Text </td>
+<td> Yes </td>
+<td> Table rows </td> </tr> </tbody> </table> </div>
+<div> Example: </div>
+<div> <pre><code class="lang-cadey">[
+  table
+    [:header Name    Type   Required Description             ]
+    [:row    header  Text   No       [: Header of the table ]]
+    [:row    row     Text   Yes      [: Table rows          ]]
+]</code></pre> </div>
+<div> Will be rendered as: </div>
+<div> <div class="example"> <div> <table> <thead> <tr><th> Name </th>
+<th> Type </th>
+<th> Required </th>
+<th> Description </th></tr> </thead> <tbody> <tr> <td> header </td>
+<td> Text </td>
+<td> No </td>
+<td> Header of the table </td> </tr>
+<tr> <td> row </td>
+<td> Text </td>
+<td> Yes </td>
+<td> Table rows </td> </tr> </tbody> </table> </div> </div> </div> <div> Generated by Cadey 0.0.2. View source <a href="https://github.com/pouya-eghbali/cadey/blob/master/www/docs/./macros.cadey">here</a>. </div> </article> <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/prism.min.js"></script> <script src="/prism.cadey.16817428.js"></script> <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</body></html>
