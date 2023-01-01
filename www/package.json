@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "parcel": "^2.0.0-nightly.164",
+    "parcel": "^2.8.2",
     "stylus": "^0.54.7"
   },
   "dependencies": {
