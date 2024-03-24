@@ -19,6 +19,7 @@ namedArgumentKeyword word|listArgument => namedArgument { argName: left.argName,
 
 bracketLeft colon => listArgumentStart { content: [], raw: left.raw + right.raw }
 listArgumentStart arguments => listArgumentStart { content: [...left.content, right], raw: left.raw + right.raw }
+listArgumentStart namedArgumentKeyword => listArgumentStart { content: [...left.content, right], raw: left.raw + right.raw }
 listArgumentStart bracketRight => listArgument { content: left.content, raw: left.raw + right.raw }
 
 newline newline => linebreak { raw: left.raw + right.raw }

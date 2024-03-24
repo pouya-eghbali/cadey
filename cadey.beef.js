@@ -19,6 +19,7 @@ namedArgumentKeyword word|listArgument => namedArgument { argName: left.argName,
 
 bracketLeft colon => listArgumentStart { content: [], raw: left.raw + right.raw }
 listArgumentStart arguments => listArgumentStart { content: [...left.content, right], raw: left.raw + right.raw }
+listArgumentStart namedArgumentKeyword => listArgumentStart { content: [...left.content, right], raw: left.raw + right.raw }
 listArgumentStart bracketRight => listArgument { content: left.content, raw: left.raw + right.raw }
 
 newline newline => linebreak { raw: left.raw + right.raw }
@@ -36,4 +37,4 @@ document block => document { content: [...left.content, right], raw: left.raw + 
 block block => document { content: [left, right], raw: left.raw + right.raw }
 
 document eof => cadey { document: left, raw: left.raw + right.raw }
-block eof => cadey { document: { name: "document", content: [left], raw: left.raw + right.raw }}`
+block eof => cadey { document: { name: "document", content: [left], raw: left.raw + right.raw }}`;
